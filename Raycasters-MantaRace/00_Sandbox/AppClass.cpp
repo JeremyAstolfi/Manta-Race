@@ -41,8 +41,6 @@ void AppClass::Update(void)
 
 	m_pMeshMngr->SetModelMatrix(rotX * rotY * rotZ, "Creeper");
 
-	//DELETE ME!
-
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 }

@@ -1,4 +1,6 @@
 #include "AppClass.h"
+
+MantaRayControls* MantaRayControls::instance = nullptr;
 void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("Sandbox"); // Window Name
@@ -10,6 +12,7 @@ void AppClass::InitWindow(String a_sWindowName)
 }
 void AppClass::InitVariables(void)
 {
+	rayControls = MantaRayControls::GetInstance();
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Creeper.obj", "Creeper");
 	m_v3Rotation = vector3(10.0f, 12.0f, 21.0f);
 }
@@ -30,16 +33,10 @@ void AppClass::Update(void)
 
 	float fPercentage = MapValue(static_cast<float>(nProgress), 0.0f, 360.0f, 0.0f, 1.0f);
 
-	vector3 v3StartX = vector3(0.0f, 0.0f, 0.0f);
-	vector3 v3EndX = vector3(360.0f, 0.0f, 0.0f);
-
-	m_v3Rotation = glm::lerp(v3StartX, v3EndX, fPercentage);
-
-	matrix4 rotX = glm::rotate(matrix4(IDENTITY), m_v3Rotation.x, REAXISX);
-	matrix4 rotY = glm::rotate(matrix4(IDENTITY), m_v3Rotation.y, REAXISY);
-	matrix4 rotZ = glm::rotate(matrix4(IDENTITY), m_v3Rotation.z, REAXISZ);
-
-	m_pMeshMngr->SetModelMatrix(rotX * rotY * rotZ, "Creeper");
+	
+	matrix4 tra = glm::translate(rayControls->GetPosition());
+	matrix4 rot = glm::rotate(matrix4(IDENTITY), 180.0f, REAXISY);
+	m_pMeshMngr->SetModelMatrix(rot * tra, "Creeper");
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -58,5 +55,6 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
+	rayControls->ReleaseInstance();
 	super::Release(); //release the memory of the inherited fields
 }

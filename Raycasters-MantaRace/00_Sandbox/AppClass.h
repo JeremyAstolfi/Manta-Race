@@ -6,6 +6,7 @@ Date: 2015/09
 #define __APPLICATION_H_
 
 #include "RE\ReEngAppClass.h"
+#include "MantaRayControls.h"
 #include <SFML\Graphics.hpp>
 //#include <chrono>
 
@@ -15,7 +16,7 @@ class AppClass : public ReEngAppClass
 {
 public:
 	typedef ReEngAppClass super;
-
+	MantaRayControls* rayControls;
 	vector3 m_v3Rotation;
 
 	/* Constructor */

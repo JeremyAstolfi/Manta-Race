@@ -1,8 +1,9 @@
 #include "AppClass.h"
+
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
-	float fSpeed = 0.01f;
+	float fSpeed = 0.05f;
 
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
@@ -16,49 +17,32 @@ void AppClass::ProcessKeyboard(void)
 			bLast##key = pressed; } //remember the state
 #pragma endregion
 
-#pragma region Modifiers
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
-		bModifier = true;
-#pragma endregion
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-	{
-		m_v3Rotation = vector3(0.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-	{
-		if (!bModifier)
-		{
-			m_v3Rotation.x += 1.0f;
-		}
-		else
-		{
-			m_v3Rotation.x -= 1.0f;
-		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
-	{
-		if (!bModifier) m_v3Rotation.y += 1.0f;
-		else m_v3Rotation.y -= 1.0f;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	{
-		if (!bModifier) m_v3Rotation.z += 1.0f;
-		else m_v3Rotation.z -= 1.0f;
-	}
-
 	#pragma region Camera Positioning
-	if(bModifier)
-		fSpeed *= 10.0f;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		m_pCamera->MoveForward(fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		rayControls->MoveVertical(fSpeed);
+		//m_pCamera->MoveForward(fSpeed);
+	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		m_pCamera->MoveForward(-fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		rayControls->MoveVertical(-fSpeed);
+		//m_pCamera->MoveForward(-fSpeed);
+	}
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		m_pCamera->MoveSideways(-fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		rayControls->MoveSideways(fSpeed);
+		//m_pCamera->MoveSideways(-fSpeed);
+	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		rayControls->MoveSideways(-fSpeed);
+		//m_pCamera->MoveSideways(fSpeed);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		m_pCamera->MoveSideways(fSpeed);
 	m_pCamera->CalculateView();
 #pragma endregion

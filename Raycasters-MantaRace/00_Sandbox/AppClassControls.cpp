@@ -1,14 +1,13 @@
 #include "AppClass.h"
-
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
-	float fSpeed = 0.05f;
+	float fSpeed = 0.01f;
 
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
-				bLastEscape = false;
+				bLastEscape = false, bLastF = false;
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
 			if(pressed){											\
@@ -17,38 +16,41 @@ void AppClass::ProcessKeyboard(void)
 			bLast##key = pressed; } //remember the state
 #pragma endregion
 
-	#pragma region Camera Positioning
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		rayControls->MoveVertical(fSpeed);
-		//m_pCamera->MoveForward(fSpeed);
-	}
+#pragma region Modifiers
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+		bModifier = true;
+#pragma endregion
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		rayControls->MoveVertical(-fSpeed);
-		//m_pCamera->MoveForward(-fSpeed);
-	}
+#pragma region Camera Positioning
+	if(bModifier)
+		fSpeed *= 10.0f;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		m_pCameraMngr->MoveForward(fSpeed);
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		m_pCameraMngr->MoveForward(-fSpeed);
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		rayControls->MoveSideways(fSpeed);
-		//m_pCamera->MoveSideways(-fSpeed);
-	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		m_pCameraMngr->MoveSideways(-fSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		rayControls->MoveSideways(-fSpeed);
-		//m_pCamera->MoveSideways(fSpeed);
-	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		m_pCameraMngr->MoveSideways(fSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		m_pCamera->MoveSideways(fSpeed);
-	m_pCamera->CalculateView();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		m_pCameraMngr->MoveVertical(-fSpeed);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 
 #pragma region Other Actions
-	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL))
+	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
+	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));
+	ON_KEY_PRESS_RELEASE(F2, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOZ));
+	ON_KEY_PRESS_RELEASE(F3, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOY));
+	ON_KEY_PRESS_RELEASE(F4, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOX));
+	static bool bFPSControll = false;
+	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
 #pragma endregion
 }
 void AppClass::ProcessMouse(void)

@@ -21,6 +21,7 @@ public:
 	int GetBONum(BoundingObject* checker);
 	void SetBOColor(BoundingObject* checker, vector3 colorChoice);
 	void SetBOVisibility(BoundingObject* checker, bool visible);
+	void SwitchVisibility(BoundingObject* checker);
 
 	//Various methods
 	void AddBox();

@@ -74,7 +74,8 @@ void BoundingObjectManager::RenderBOs(){
 	//TODO:: actually render the visibleForRender list
 }
 
-void BoundingObjectManager::CheckCollisions(){
+void BoundingObjectManager::CheckCollisions()
+{
 
 }
 
@@ -83,30 +84,18 @@ void BoundingObjectManager::CheckCollisions(){
 
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)
 {
-	/*
-	vector3 m_v3MinG = vector3(object1->GetModelMatrix() * vector4(m_v3Min, 1.0f));
-	vector3 m_v3MaxG = vector3(object1->GetModelMatrix() * vector4(m_v3Max, 1.0f));
+	vector3 o1WidthX = vector3(object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f, 0.0f);
+	vector3 o2WidthX = vector3(object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f, 0.0f);
+	vector3 o1WidthY = vector3(0.0f, object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f);
+	vector3 o2WidthY = vector3(0.0f, object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f);
+	vector3 o1WidthZ = vector3(0.0f, 0.0f, object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x);
+	vector3 o2WidthZ = vector3(0.0f, 0.0f, object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x);
 
-	vector3 v3MinO = vector3(object2->GetModelMatrix() * vector4(a_pOther->m_v3Min, 1.0f));
-	vector3 v3MaxO = vector3(object2->GetModelMatrix() * vector4(a_pOther->m_v3Max, 1.0f));
-	
-	if (m_v3MaxG.x < a_pOther->m_v3MinG.x)
-		bColliding = false;
-	if (m_v3MinG.x > a_pOther->m_v3MaxG.x)
-		bColliding = false;
+	if (glm::distance(o1WidthX, o2WidthX) <= 0.0f)
+	{
 
-	//Check for Y
-	if (m_v3MaxG.y < a_pOther->m_v3MinG.y)
-		bColliding = false;
-	if (m_v3MinG.y > a_pOther->m_v3MaxG.y)
-		bColliding = false;
-
-	//Check for Z
-	if (m_v3MaxG.z < a_pOther->m_v3MinG.z)
-		bColliding = false;
-	if (m_v3MinG.z > a_pOther->m_v3MaxG.z)
-		bColliding = false;
-		*/
+	}
+		
 }
 
 

@@ -28,5 +28,6 @@ public:
 
 	void CheckCollisions();
 	void Collide();
+	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);
 };
 

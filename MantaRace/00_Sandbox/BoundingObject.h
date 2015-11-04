@@ -18,6 +18,8 @@ class BoundingObject
 
 	vector3 m_v3HalfWidth = vector3(0.0f);//Will store half the size of all sides
 	vector3 m_v3HalfWidthG = vector3(0.0f);//Will store half the size of all sides
+	vector3 color;
+	bool visibilty;
 
 
 public:
@@ -35,6 +37,10 @@ public:
 	vector3 GetCenterGlobal();
 	vector3 GetHalfWidthGlobal();
 	vector3 GetHalfWidthLocal();
+	vector3 GetColor();
+	void SetColor(vector3 _v3Color);
+	void SetVisibility(bool _visible);
+	bool GetVisibility();
 	
 	bool IsBoxColliding(BoundingObject* other);
 	bool IsSphereColliding(BoundingObject* other);

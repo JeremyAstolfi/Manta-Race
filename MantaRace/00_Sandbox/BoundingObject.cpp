@@ -103,7 +103,8 @@ vector3 BoundingObject::GetRadiusV3()
 
 float BoundingObject::GetRadiusF()
 {
-
+	vector3 rad = this->GetRadiusV3();
+	return rad.x;
 }
 
 void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
@@ -160,5 +161,78 @@ void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 
 bool BoundingObject::IsBoxColliding(BoundingObject* other)
 {
+	//Get all vectors in global space
+	vector3 v3Min = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
+	vector3 v3Max = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
 
+	vector3 v3MinO = vector3(other->m_m4ToWorld * vector4(other->m_v3Min, 1.0f));
+	vector3 v3MaxO = vector3(other->m_m4ToWorld * vector4(other->m_v3Max, 1.0f));
+
+	/*
+	Are they colliding?
+	For boxes we will assume they are colliding, unless at least one of the following conditions is not met
+	*/
+	bool bColliding = true;
+
+	//Check for X
+	if (m_v3MaxG.x < other->m_v3MinG.x)
+		bColliding = false;
+	if (m_v3MinG.x > other->m_v3MaxG.x)
+		bColliding = false;
+
+	//Check for Y
+	if (m_v3MaxG.y < other->m_v3MinG.y)
+		bColliding = false;
+	if (m_v3MinG.y > other->m_v3MaxG.y)
+		bColliding = false;
+
+	//Check for Z
+	if (m_v3MaxG.z < other->m_v3MinG.z)
+		bColliding = false;
+	if (m_v3MinG.z > other->m_v3MaxG.z)
+		bColliding = false;
+
+	return bColliding;
+}
+
+bool BoundingObject::IsSphereColliding(BoundingObject* other)
+{
+	bool bColliding = true;
+
+	float otherTheta = other->GetRadiusF();
+	float thisTheta = this->GetRadiusF();
+
+	//CHECK X
+	if (this->m_v3CenterG.x + thisTheta > other->m_v3CenterG.x - otherTheta)
+		bColliding = false;
+	if (this->m_v3CenterG.x - thisTheta > other->m_v3CenterG.x + otherTheta)
+		bColliding = false;
+	
+	//CHECK Y
+	if (this->m_v3CenterG.y + thisTheta > other->m_v3CenterG.y - otherTheta)
+		bColliding = false;
+	if (this->m_v3CenterG.y - thisTheta > other->m_v3CenterG.y + otherTheta)
+		bColliding = false;
+
+	//CHECK Z
+	if (this->m_v3CenterG.z + thisTheta > other->m_v3CenterG.z - otherTheta)
+		bColliding = false;
+	if (this->m_v3CenterG.z - thisTheta > other->m_v3CenterG.z + otherTheta)
+		bColliding = false;
+
+	return bColliding;
+}
+
+vector3 BoundingObject::GetColor(){ return this->color; }
+
+void BoundingObject::SetColor(vector3 _v3Color)
+{
+	this->color = _v3Color;
+}
+
+bool BoundingObject::GetVisibility(){ return this->visibilty; }
+
+void BoundingObject::SetVisibility(bool _visible)
+{
+	this->visibilty = _visible;
 }

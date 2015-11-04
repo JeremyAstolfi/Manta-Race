@@ -18,14 +18,14 @@ public:
 
 
 	//Get-Sets
-	int GetBONum(BoundingObject checker);
-	vector3 SetBOColor(BoundingObject checker);
-	bool SetBOVisible();
+	int GetBONum(BoundingObject* checker);
+	void SetBOColor(BoundingObject* checker, vector3 colorChoice);
+	void SetBOVisible(BoundingObject* checker);
 
 	//Various methods
 	void AddBox();
-	void SwitchVisible();
-
+	void SwitchVisible(BoundingObject* checker);
+	void RenderBOs();
 	void CheckCollisions();
 	void Collide();
 };

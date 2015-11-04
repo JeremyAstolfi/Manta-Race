@@ -30,14 +30,42 @@ void BoundingObjectManager::ReleaseInstance()
 }
 
 //get - sets
-int BoundingObjectManager::GetBONum(BoundingObject checker){
+int BoundingObjectManager::GetBONum(BoundingObject* checker){
 	return 0;
 }
 
-vector3 BoundingObjectManager::SetBOColor(BoundingObject checker){
-	return vector3(0, 0, 0);
+void BoundingObjectManager::SetBOColor(BoundingObject* checker, vector3 colorChoice){
+	checker->SetColor(colorChoice);
+}
+
+void BoundingObjectManager::SetBOVisible(BoundingObject* checker){
+	checker->SetVisibility(true);
 }
 
 //various methods
 
+void BoundingObjectManager::AddBox(){
+	BoundingObject* adder = new BoundingObject();
+	boundingObjects.push_back(adder);
+}
 
+void BoundingObjectManager::SwitchVisible(BoundingObject* checker){
+	if (checker->GetVisibility() == true){
+		checker->SetVisibility(false);
+	}
+	else{
+		checker->SetVisibility(true);
+	}
+}
+
+void BoundingObjectManager::RenderBOs(){
+
+}
+
+void BoundingObjectManager::CheckCollisions(){
+
+}
+
+void BoundingObjectManager::Collide(){
+
+}

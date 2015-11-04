@@ -162,5 +162,3 @@ bool BoundingObject::IsBoxColliding(BoundingObject* other)
 {
 
 }
-
-bool

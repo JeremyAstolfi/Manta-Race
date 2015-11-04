@@ -25,7 +25,6 @@ public:
 
 	//Various methods
 	void AddBox();
-	void SwitchVisibility(BoundingObject* checker);
 	void RenderBOs();
 	void CheckCollisions();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);

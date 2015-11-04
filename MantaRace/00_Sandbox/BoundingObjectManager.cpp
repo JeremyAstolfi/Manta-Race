@@ -66,7 +66,7 @@ void BoundingObjectManager::SwitchVisibility(BoundingObject* checker){
 //Create a list of visible Bounding Objects and add them to a render list
 void BoundingObjectManager::RenderBOs(){
 	for (int i = 0; i < boundingObjects.size(); i++){
-		if (boundingObjects[i]->GetVisibility == true){
+		if (boundingObjects[i]->GetVisibility() == true){
 			visibleForRender.push_back(boundingObjects[i]);
 		}
 	}
@@ -74,12 +74,9 @@ void BoundingObjectManager::RenderBOs(){
 	//TODO:: actually render the visibleForRender list
 }
 
-<<<<<<< HEAD
+
 void BoundingObjectManager::CheckCollisions()
 {
-
-=======
-void BoundingObjectManager::CheckCollisions(){
 	/* //for when the visibleForRender vector is removed above
 	for (int i = 0; i < boundingObjects.size(); i++){
 		if (boundingObjects[i]->GetVisibility == true){
@@ -95,19 +92,18 @@ void BoundingObjectManager::CheckCollisions(){
 				if (visibleForRender[i]->IsSphereColliding(visibleForRender[e])){
 					if (visibleForRender[i]->IsBoxColliding(visibleForRender[e])){
 					
-						CollisionResponse(visibleForRender[i], visibleForRender[e]);
+						//CollisionResponse(visibleForRender[i], visibleForRender[e]);
 
 					}//end box
 				}// end sphere
 			}//end i !=e
 		}//end for e
 	}// end for i
->>>>>>> e9ff051384cf0fa4de04b2cc0d1a5f58cae47cac
 }
 
 
 
-
+/*
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)
 {
 	vector3 o1WidthX = vector3(object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f, 0.0f);
@@ -122,6 +118,6 @@ void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingO
 
 	}
 		
-}
+}*/
 
 

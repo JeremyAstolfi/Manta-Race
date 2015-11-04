@@ -31,8 +31,8 @@ void BoundingObjectManager::ReleaseInstance()
 
 //get - sets
 //Get the index of a BO?
-int BoundingObjectManager::GetBONum(BoundingObject* checker){
-	return 0;
+int BoundingObjectManager::GetBONum(){
+	return boundingObjects.size();
 }
 
 //Set the color of a Bounding Object
@@ -75,7 +75,28 @@ void BoundingObjectManager::RenderBOs(){
 }
 
 void BoundingObjectManager::CheckCollisions(){
+	/* //for when the visibleForRender vector is removed above
+	for (int i = 0; i < boundingObjects.size(); i++){
+		if (boundingObjects[i]->GetVisibility == true){
+			visibleForRender.push_back(boundingObjects[i]);
+		}
+	}
+	*/
 
+	for (int i = 0; i < visibleForRender.size(); i++){
+		for (int e = i; e < visibleForRender.size(); e++){
+
+			if (i != e){
+				if (visibleForRender[i]->IsSphereColliding(visibleForRender[e])){
+					if (visibleForRender[i]->IsBoxColliding(visibleForRender[e])){
+					
+						CollisionResponse(visibleForRender[i], visibleForRender[e]);
+
+					}//end box
+				}// end sphere
+			}//end i !=e
+		}//end for e
+	}// end for i
 }
 
 

@@ -15,19 +15,18 @@ public:
 
 	//fields
 	std::vector<BoundingObject*> boundingObjects;
-
+	std::vector<BoundingObject*> visibleForRender;
 
 	//Get-Sets
 	int GetBONum(BoundingObject* checker);
 	void SetBOColor(BoundingObject* checker, vector3 colorChoice);
-	void SetBOVisible(BoundingObject* checker);
+	void SetBOVisibility(BoundingObject* checker, bool visible);
 
 	//Various methods
 	void AddBox();
 	void SwitchVisible(BoundingObject* checker);
 	void RenderBOs();
 	void CheckCollisions();
-	void Collide();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);
 };
 

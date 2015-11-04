@@ -30,17 +30,56 @@ void BoundingObjectManager::ReleaseInstance()
 }
 
 //get - sets
+//Get the index of a BO?
 int BoundingObjectManager::GetBONum(BoundingObject* checker){
 	return 0;
 }
 
+//Set the color of a Bounding Object
 void BoundingObjectManager::SetBOColor(BoundingObject* checker, vector3 colorChoice){
 	checker->SetColor(colorChoice);
 }
 
-void BoundingObjectManager::SetBOVisible(BoundingObject* checker){
-	checker->SetVisibility(true);
+//Set the visibility of a Bounding Object
+void BoundingObjectManager::SetBOVisibility(BoundingObject* checker, bool visible){
+	checker->SetVisibility(visible);
 }
+
+//various methods
+
+//Add a new Bounding Object to the list
+void BoundingObjectManager::AddBox(){
+	BoundingObject* adder = new BoundingObject();
+	boundingObjects.push_back(adder);
+}
+
+//Switch the visibility of a Bounding Object
+void BoundingObjectManager::SwitchVisibility(BoundingObject* checker){
+	if (checker->GetVisibility() == true){
+		checker->SetVisibility(false);
+	}
+	else{
+		checker->SetVisibility(true);
+	}
+}
+
+//Create a list of visible Bounding Objects and add them to a render list
+void BoundingObjectManager::RenderBOs(){
+	for (int i = 0; i < boundingObjects.size(); i++){
+		if (boundingObjects[i]->GetVisibility == true){
+			visibleForRender.push_back(boundingObjects[i]);
+		}
+	}
+
+	//TODO:: actually render the visibleForRender list
+}
+
+void BoundingObjectManager::CheckCollisions(){
+
+}
+
+
+
 
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)
 {
@@ -70,30 +109,4 @@ void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingO
 		*/
 }
 
-//various methods
 
-void BoundingObjectManager::AddBox(){
-	BoundingObject* adder = new BoundingObject();
-	boundingObjects.push_back(adder);
-}
-
-void BoundingObjectManager::SwitchVisible(BoundingObject* checker){
-	if (checker->GetVisibility() == true){
-		checker->SetVisibility(false);
-	}
-	else{
-		checker->SetVisibility(true);
-	}
-}
-
-void BoundingObjectManager::RenderBOs(){
-
-}
-
-void BoundingObjectManager::CheckCollisions(){
-
-}
-
-void BoundingObjectManager::Collide(){
-
-}

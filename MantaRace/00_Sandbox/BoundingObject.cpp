@@ -64,6 +64,48 @@ void BoundingObject::Init()
 	m_v3HalfWidthG = vector3(0.0f);
 }
 
+vector3 BoundingObject::GetRadiusV3()
+{
+	//this emthod finds the point ont the axis fruthest from the center in both the minimum and maximum dirwection
+	//and it gets the furthest from the center of those two, and then returns a vector with the largest distance stored in all values
+	vector3 maxDist = vector3(0.0f); //m_v3MaxG * vector3((m_v3MaxG.x - m_v3MinG.x) / 2.0f, (m_v3MaxG.y - m_v3MinG.y) / 2.0f, (m_v3MaxG.z - m_v3MinG.z) / 2.0f);
+	vector3 minDist = vector3(0.0f);
+
+	//find the axis that is furthest out in maximum direction
+	if (glm::distance(vector3(m_v3MaxG.x), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
+		maxDist = vector3(m_v3MaxG.x);
+	if (glm::distance(vector3(m_v3MaxG.y), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
+		maxDist = vector3(m_v3MaxG.y);
+	if (glm::distance(vector3(m_v3MaxG.z), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
+		maxDist = vector3(m_v3MaxG.z);
+	
+	//find the axis furthest out in minimum direction
+	if (glm::distance(vector3(m_v3MinG.x), m_v3CenterG) < glm::distance(minDist, m_v3CenterG))
+		minDist = vector3(m_v3MinG.x);
+	if (glm::distance(vector3(m_v3MinG.y), m_v3CenterG) < glm::distance(maxDist, m_v3CenterG))
+		minDist = vector3(m_v3MinG.y);
+	if (glm::distance(vector3(m_v3MinG.z), m_v3CenterG) < glm::distance(maxDist, m_v3CenterG))
+		minDist = vector3(m_v3MinG.z);
+
+	//get them in radius form from center
+	float maxDistFloat = glm::distance(maxDist, m_v3CenterG);
+	float minDistFloat = glm::distance(minDist, m_v3CenterG);
+	vector3 returnVec = vector3(0.0f);
+
+	//find which one is bigger then return a vector populated with said distance
+	if (minDistFloat > maxDistFloat)
+		returnVec = vector3(minDistFloat);
+	else
+		returnVec = vector3(maxDistFloat);
+
+	return returnVec;
+}
+
+float BoundingObject::GetRadiusF()
+{
+
+}
+
 void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 {
 	//If there are no changes in the Model Matrix there is no need
@@ -115,3 +157,10 @@ void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 	m_v3HalfWidthG.y = m_v3MaxG.y - m_v3MinG.y / 2.0f;
 	m_v3HalfWidthG.z = m_v3MaxG.z - m_v3MinG.z / 2.0f;
 }
+
+bool BoundingObject::IsBoxColliding(BoundingObject* other)
+{
+
+}
+
+bool

@@ -14,7 +14,13 @@ public:
 
 	void Init();
 	void SetModelMatrix(matrix4 _m4ToWorld);
-	bool IsColliding(BoundingObject* other);
+	vector3 GetRadiusV3();
+	vector3 maxDist;
+	vector3 minDist;
+	float GetRadiusF();
+
+	bool IsBoxColliding(BoundingObject* other);
+	bool IsSphereColliding(BoundingObject* other);
 
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Matrix that will take us from local to world coordinate
 	vector3 m_v3Center = vector3(0.0f); //Will store the center point of the box Class

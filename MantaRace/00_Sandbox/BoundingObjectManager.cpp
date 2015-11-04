@@ -28,3 +28,16 @@ void BoundingObjectManager::ReleaseInstance()
 		BoundingObjectManager::instance = nullptr;
 	}
 }
+
+//get - sets
+int BoundingObjectManager::GetBONum(BoundingObject checker){
+	return 0;
+}
+
+vector3 BoundingObjectManager::SetBOColor(BoundingObject checker){
+	return vector3(0, 0, 0);
+}
+
+//various methods
+
+

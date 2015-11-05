@@ -43,6 +43,22 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 
+#pragma region Creeper Control
+	if (bModifier)
+		fSpeed *= 10.0f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		//m_v3O1.x -= 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		//m_v3O1.x += 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		//m_v3O1.y -= 0.1f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		//m_v3O1.y += 0.1f;
+#pragma endregion
+
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
 	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));

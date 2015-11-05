@@ -11,7 +11,10 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9758b7664695f629a504722ac3d03040b2e1c170
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Creeper.obj", "Creeper");
 }

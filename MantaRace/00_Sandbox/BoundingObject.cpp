@@ -63,7 +63,8 @@ void BoundingObject::Init()
 	m_v3HalfWidth = vector3(0.0f);
 	m_v3HalfWidthG = vector3(0.0f);
 }
-
+void BoundingObject::SetPosition(vector3 amount){ m_v3Position += amount; }
+vector3 BoundingObject::GetPosition(void){ return m_v3Position; }
 matrix4 BoundingObject::GetModelMatrix(void){ return m_m4ToWorld; }
 vector3 BoundingObject::GetCenterLocal(void){ return m_v3Center; }
 vector3 BoundingObject::GetCenterGlobal(void){ return m_v3CenterG; }

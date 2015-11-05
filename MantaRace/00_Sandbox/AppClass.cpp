@@ -27,7 +27,7 @@ void AppClass::Update(void)
 
 	//First person camera movement
 	if (m_bFPC == true)
-		CameraRotation(); //DELETE ME!
+		CameraRotation(); 
 
 	//Call the arcball method
 	ArcBall();
@@ -35,6 +35,11 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(-2.5f,0.0f,0.0f)) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(2.5f, 0.0f, 0.0f)), "Creeper");
 	bObjManager->RenderBO(m_pMeshMngr);
+
+	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[0]->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
+	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[1]->GetPosition()), "Creeper");
+
+
 	//Adds all loaded instance to the render list
 	
 	m_pMeshMngr->AddInstanceToRenderList("ALL");

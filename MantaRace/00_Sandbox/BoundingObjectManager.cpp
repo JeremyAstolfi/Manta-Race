@@ -92,7 +92,7 @@ void BoundingObjectManager::CheckCollisions()
 				if (visibleForRender[i]->IsSphereColliding(visibleForRender[e])){
 					if (visibleForRender[i]->IsBoxColliding(visibleForRender[e])){
 					
-						//CollisionResponse(visibleForRender[i], visibleForRender[e]);
+						CollisionResponse(visibleForRender[i], visibleForRender[e]);
 
 					}//end box
 				}// end sphere
@@ -106,6 +106,8 @@ void BoundingObjectManager::CheckCollisions()
 
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)
 {
+	object1->SetColor(vector3(1.0f, 0.0f, 0.0f));
+	object2->SetColor(vector3(1.0f, 0.0f, 0.0f));
 	vector3 o1WidthX = vector3(object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f, 0.0f); //>>
 	vector3 o2WidthX = vector3(object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f, 0.0f); //<<
 	vector3 o1WidthY = vector3(0.0f, object1->GetHalfWidthGlobal().y - object1->GetCenterGlobal().y, 0.0f);
@@ -115,19 +117,19 @@ void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingO
 
 	if (glm::distance(o1WidthX, o2WidthX) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f));
 	}
 
 	if (glm::distance(o1WidthY, o2WidthY) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f));
 	}
 	if (glm::distance(o1WidthZ, o2WidthZ) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f));
 	}
 
 	o1WidthX = vector3(object1->GetHalfWidthGlobal().x + object1->GetCenterGlobal().x, 0.0f, 0.0f); //<<
@@ -139,19 +141,19 @@ void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingO
 
 	if (glm::distance(o1WidthX, o2WidthX) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f));
 	}
 
 	if (glm::distance(o1WidthY, o2WidthY) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f));
 	}
 	if (glm::distance(o1WidthZ, o2WidthZ) <= 0.0f)
 	{
-		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f)));
-		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object1->SetPosition(vector3(glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f));
+		object2->SetPosition(vector3(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f));
 	}
 		
 }

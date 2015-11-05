@@ -7,6 +7,8 @@
 class BoundingObject
 {
 
+	vector3 m_v3Position = vector3(0.0f);
+
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Matrix that will take us from local to world coordinate
 	vector3 m_v3Center = vector3(0.0f); //Will store the center point of the box Class
 	vector3 m_v3Min = vector3(0.0f); //Will store the minimum vector of the box Class
@@ -30,6 +32,8 @@ public:
 
 	void Init();
 	void SetModelMatrix(matrix4 _m4ToWorld);
+	vector3 GetPosition();
+	void SetPosition(vector3 amount);
 	vector3 GetRadiusV3();
 	float GetRadiusF();
 	matrix4 GetModelMatrix();

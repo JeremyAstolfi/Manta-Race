@@ -66,17 +66,20 @@ void BoundingObjectManager::SwitchVisibility(BoundingObject* checker){
 
 //Create a list of visible Bounding Objects and add them to a render list
 //0 = all
-void BoundingObjectManager::RenderBO(int index){
+void BoundingObjectManager::RenderBO(MeshManagerSingleton* meshManager){
 	for (int i = 0; i < boundingObjects.size(); i++){
 		if (boundingObjects[i]->GetVisibility() == true){
 			visibleForRender.push_back(boundingObjects[i]);
 		}
-	} 
-	
+	}
+
 	//TODO:: actually render the visibleForRender list
-
+	for (int i = 0; i < visibleForRender.size(); i++)
+	{
+		meshManager->AddCubeToQueue(meshManager->GetModelMatrix("Steve") * glm::scale(visibleForRender[i]->GetHalfWidthLocal() *2.0f), vector3(255.0f, 0.0f, 0.0f), WIRE);
+	}
+	meshManager->AddCubeToQueue(IDENTITY_M4, vector3(255.0f), WIRE);
 }
-
 
 void BoundingObjectManager::CheckCollisions()
 {

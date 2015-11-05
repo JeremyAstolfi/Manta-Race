@@ -13,7 +13,7 @@ public:
 	static BoundingObjectManager* instance;
 	static BoundingObjectManager* GetInstance();
 	static void ReleaseInstance();
-
+	
 	//fields
 	std::vector<BoundingObject*> boundingObjects;
 	std::vector<BoundingObject*> visibleForRender;
@@ -26,7 +26,7 @@ public:
 
 	//Various methods
 	void AddBox();
-	void RenderBO(int);
+	void RenderBO(MeshManagerSingleton*);
 	void CheckCollisions();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);
 };

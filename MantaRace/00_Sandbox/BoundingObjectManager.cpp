@@ -51,6 +51,7 @@ void BoundingObjectManager::SetBOVisibility(BoundingObject* checker, bool visibl
 void BoundingObjectManager::AddBox(){
 	BoundingObject* adder = new BoundingObject();
 	boundingObjects.push_back(adder);
+	boundingObjects[boundingObjects.size() - 1]->SetPosition(vector3(2.5f * (boundingObjects.size() - 1), 0.0f, 0.0f));
 }
 
 //Switch the visibility of a Bounding Object

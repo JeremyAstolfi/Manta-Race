@@ -103,21 +103,57 @@ void BoundingObjectManager::CheckCollisions()
 
 
 
-/*
+
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)
 {
-	vector3 o1WidthX = vector3(object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f, 0.0f);
-	vector3 o2WidthX = vector3(object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f, 0.0f);
-	vector3 o1WidthY = vector3(0.0f, object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f);
-	vector3 o2WidthY = vector3(0.0f, object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f);
-	vector3 o1WidthZ = vector3(0.0f, 0.0f, object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x);
-	vector3 o2WidthZ = vector3(0.0f, 0.0f, object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x);
+	vector3 o1WidthX = vector3(object1->GetHalfWidthGlobal().x - object1->GetCenterGlobal().x, 0.0f, 0.0f); //>>
+	vector3 o2WidthX = vector3(object2->GetHalfWidthGlobal().x + object2->GetCenterGlobal().x, 0.0f, 0.0f); //<<
+	vector3 o1WidthY = vector3(0.0f, object1->GetHalfWidthGlobal().y - object1->GetCenterGlobal().y, 0.0f);
+	vector3 o2WidthY = vector3(0.0f, object2->GetHalfWidthGlobal().y + object2->GetCenterGlobal().y, 0.0f);
+	vector3 o1WidthZ = vector3(0.0f, 0.0f, object1->GetHalfWidthGlobal().z - object1->GetCenterGlobal().z);
+	vector3 o2WidthZ = vector3(0.0f, 0.0f, object2->GetHalfWidthGlobal().z + object2->GetCenterGlobal().z);
 
 	if (glm::distance(o1WidthX, o2WidthX) <= 0.0f)
 	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f)));
+	}
 
+	if (glm::distance(o1WidthY, o2WidthY) <= 0.0f)
+	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f)));
+	}
+	if (glm::distance(o1WidthZ, o2WidthZ) <= 0.0f)
+	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f)));
+	}
+
+	o1WidthX = vector3(object1->GetHalfWidthGlobal().x + object1->GetCenterGlobal().x, 0.0f, 0.0f); //<<
+	o2WidthX = vector3(object2->GetHalfWidthGlobal().x - object2->GetCenterGlobal().x, 0.0f, 0.0f); //>>
+	o1WidthY = vector3(0.0f, object1->GetHalfWidthGlobal().y + object1->GetCenterGlobal().y, 0.0f);
+	o2WidthY = vector3(0.0f, object2->GetHalfWidthGlobal().y - object2->GetCenterGlobal().y, 0.0f);
+	o1WidthZ = vector3(0.0f, 0.0f, object1->GetHalfWidthGlobal().z + object1->GetCenterGlobal().z);
+	o2WidthZ = vector3(0.0f, 0.0f, object2->GetHalfWidthGlobal().z - object2->GetCenterGlobal().z);
+
+	if (glm::distance(o1WidthX, o2WidthX) <= 0.0f)
+	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthX, o2WidthX) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthX, o2WidthX) / 2.0f - 0.1f, 0.0f, 0.0f)));
+	}
+
+	if (glm::distance(o1WidthY, o2WidthY) <= 0.0f)
+	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthY, o2WidthY) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthY, o2WidthY) / 2.0f - 0.1f, 0.0f, 0.0f)));
+	}
+	if (glm::distance(o1WidthZ, o2WidthZ) <= 0.0f)
+	{
+		object1->SetModelMatrix((glm::translate(glm::distance(o1WidthZ, o2WidthZ) / 2.0f + 0.1f, 0.0f, 0.0f)));
+		object2->SetModelMatrix((glm::translate(-glm::distance(o1WidthZ, o2WidthZ) / 2.0f - 0.1f, 0.0f, 0.0f)));
 	}
 		
-}*/
+}
 
 

@@ -64,6 +64,12 @@ void BoundingObject::Init()
 	m_v3HalfWidthG = vector3(0.0f);
 }
 
+matrix4 BoundingObject::GetModelMatrix(void){ return m_m4ToWorld; }
+vector3 BoundingObject::GetCenterLocal(void){ return m_v3Center; }
+vector3 BoundingObject::GetCenterGlobal(void){ return m_v3CenterG; }
+vector3 BoundingObject::GetHalfWidthLocal(void){ return m_v3HalfWidth; }
+vector3 BoundingObject::GetHalfWidthGlobal(void){ return m_v3HalfWidthG; }
+
 vector3 BoundingObject::GetRadiusV3()
 {
 	//this emthod finds the point ont the axis fruthest from the center in both the minimum and maximum dirwection

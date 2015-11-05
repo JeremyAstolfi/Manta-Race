@@ -4,6 +4,7 @@
 #include "BoundingObject.h"
 #include <SFML\Graphics.hpp>
 
+
 class BoundingObjectManager
 {
 public:
@@ -25,7 +26,7 @@ public:
 
 	//Various methods
 	void AddBox();
-	void RenderBOs();
+	void RenderBO(int);
 	void CheckCollisions();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);
 };

@@ -161,9 +161,9 @@ void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 	m_v3CenterG = (m_v3MinG + m_v3MaxG) / 2.0f;
 
 	//we calculate the distance between all the values of min and max vectors
-	m_v3HalfWidthG.x = m_v3MaxG.x - m_v3MinG.x / 2.0f;
-	m_v3HalfWidthG.y = m_v3MaxG.y - m_v3MinG.y / 2.0f;
-	m_v3HalfWidthG.z = m_v3MaxG.z - m_v3MinG.z / 2.0f;
+	m_v3HalfWidthG.x = (m_v3MaxG.x - m_v3MinG.x) / 2.0f;
+	m_v3HalfWidthG.y = (m_v3MaxG.y - m_v3MinG.y) / 2.0f;
+	m_v3HalfWidthG.z = (m_v3MaxG.z - m_v3MinG.z) / 2.0f;
 }
 
 bool BoundingObject::IsBoxColliding(BoundingObject* other)

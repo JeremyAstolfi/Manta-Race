@@ -13,8 +13,8 @@ void AppClass::InitVariables(void)
 {
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Creeper.obj", "Creeper");
-	bObjManager->AddBox();
-	bObjManager->AddBox();
+	bObjManager->AddBox("Steve",m_pMeshMngr->GetVertexList("Steve"));
+	bObjManager->AddBox("Creeper",m_pMeshMngr->GetVertexList("Creeper"));
 }
 
 void AppClass::Update(void)
@@ -32,10 +32,27 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
+
+
+
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[0]->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[1]->GetPosition()), "Creeper");
 
+	bObjManager->boundingObjects[0]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
+	bObjManager->boundingObjects[1]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"));
+
+	bObjManager->boundingObjects[0]->SetVisibility(true);
+	bObjManager->boundingObjects[1]->SetVisibility(true);
+	//bObjManager->RenderBO(m_pMeshMngr);
 	//Adds all loaded instance to the render list
+
+
+	m_pMeshMngr->AddCubeToQueue(glm::translate(bObjManager->boundingObjects[0]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[0]->GetHalfWidthGlobal() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
+	m_pMeshMngr->AddCubeToQueue(glm::translate(bObjManager->boundingObjects[1]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[1]->GetHalfWidthGlobal() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
+
+	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[0]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[0]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[0]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
+	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[1]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[1]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[1]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
+	
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	//Indicate the FPS

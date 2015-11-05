@@ -3,7 +3,7 @@
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-
+#include <string.h>
 class BoundingObject
 {
 
@@ -29,7 +29,7 @@ public:
 	~BoundingObject();
 
 	BoundingObject(std::vector<vector3> pts);
-
+	String Model;
 	void Init();
 	void SetModelMatrix(matrix4 _m4ToWorld);
 	vector3 GetPosition();

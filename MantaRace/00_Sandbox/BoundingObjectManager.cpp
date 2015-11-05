@@ -64,14 +64,16 @@ void BoundingObjectManager::SwitchVisibility(BoundingObject* checker){
 }
 
 //Create a list of visible Bounding Objects and add them to a render list
-void BoundingObjectManager::RenderBOs(){
+//0 = all
+void BoundingObjectManager::RenderBO(int index){
 	for (int i = 0; i < boundingObjects.size(); i++){
 		if (boundingObjects[i]->GetVisibility() == true){
 			visibleForRender.push_back(boundingObjects[i]);
 		}
-	}
-
+	} 
+	
 	//TODO:: actually render the visibleForRender list
+
 }
 
 

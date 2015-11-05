@@ -32,6 +32,16 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
+	if (bObjManager->boundingObjects[0]->IsSphereColliding(bObjManager->boundingObjects[1]))
+	{
+		bObjManager->boundingObjects[0]->SetColor(vector3(1.0f, 0.0f, 0.0f));
+		bObjManager->boundingObjects[1]->SetColor(vector3(1.0f, 0.0f, 0.0f));
+	}
+	else
+	{
+		bObjManager->boundingObjects[0]->SetColor(vector3(1.0f, 0.0f, 1.0f));
+		bObjManager->boundingObjects[1]->SetColor(vector3(1.0f, 0.0f, 1.0f));
+	}
 
 
 
@@ -53,6 +63,11 @@ void AppClass::Update(void)
 	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[0]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[0]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[0]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
 	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[1]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[1]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[1]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
 	
+	m_pMeshMngr->AddSphereToQueue(glm::translate(bObjManager->boundingObjects[0]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[0]->GetRadiusV3() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
+	m_pMeshMngr->AddSphereToQueue(glm::translate(bObjManager->boundingObjects[1]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[1]->GetRadiusV3() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
+
+	bObjManager->CheckCollisions();
+
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	//Indicate the FPS

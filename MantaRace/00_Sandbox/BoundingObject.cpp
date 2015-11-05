@@ -78,21 +78,13 @@ vector3 BoundingObject::GetRadiusV3()
 	vector3 maxDist = vector3(0.0f); //m_v3MaxG * vector3((m_v3MaxG.x - m_v3MinG.x) / 2.0f, (m_v3MaxG.y - m_v3MinG.y) / 2.0f, (m_v3MaxG.z - m_v3MinG.z) / 2.0f);
 	vector3 minDist = vector3(0.0f);
 
-	//find the axis that is furthest out in maximum direction
-	if (glm::distance(vector3(m_v3MaxG.x), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
-		maxDist = vector3(m_v3MaxG.x);
-	if (glm::distance(vector3(m_v3MaxG.y), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
-		maxDist = vector3(m_v3MaxG.y);
-	if (glm::distance(vector3(m_v3MaxG.z), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
-		maxDist = vector3(m_v3MaxG.z);
-	
-	//find the axis furthest out in minimum direction
-	if (glm::distance(vector3(m_v3MinG.x), m_v3CenterG) < glm::distance(minDist, m_v3CenterG))
-		minDist = vector3(m_v3MinG.x);
-	if (glm::distance(vector3(m_v3MinG.y), m_v3CenterG) < glm::distance(maxDist, m_v3CenterG))
-		minDist = vector3(m_v3MinG.y);
-	if (glm::distance(vector3(m_v3MinG.z), m_v3CenterG) < glm::distance(maxDist, m_v3CenterG))
-		minDist = vector3(m_v3MinG.z);
+
+	if (glm::distance(vector3(m_m4ToWorld * vector4(m_v3MaxG, 1.0f)), m_v3CenterG) > glm::distance(maxDist, m_v3CenterG))
+		maxDist = m_v3MaxG;
+
+
+	if (glm::distance(vector3(m_m4ToWorld * vector4(m_v3MinG, 1.0f)), m_v3CenterG) < glm::distance(minDist, m_v3CenterG))
+		minDist = m_v3MinG;
 
 	//get them in radius form from center
 	float maxDistFloat = glm::distance(maxDist, m_v3CenterG);
@@ -100,9 +92,9 @@ vector3 BoundingObject::GetRadiusV3()
 	vector3 returnVec = vector3(0.0f);
 
 	//find which one is bigger then return a vector populated with said distance
-	if (minDistFloat > maxDistFloat)
-		returnVec = vector3(minDistFloat);
-	else
+	//if (minDistFloat > maxDistFloat)
+	//	returnVec = vector3(minDistFloat);
+	//else
 		returnVec = vector3(maxDistFloat);
 
 	return returnVec;
@@ -206,9 +198,18 @@ bool BoundingObject::IsSphereColliding(BoundingObject* other)
 {
 	bool bColliding = true;
 
-	float otherTheta = other->GetRadiusF();
-	float thisTheta = this->GetRadiusF();
+	//float otherTheta = other->GetRadiusF();
+	//float thisTheta = this->GetRadiusF();
 
+	if (glm::distance(this->GetRadiusV3(), other->GetRadiusV3()) <= 0.0f)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	/*
 	//CHECK X
 	if (this->m_v3CenterG.x + thisTheta > other->m_v3CenterG.x - otherTheta)
 		bColliding = false;
@@ -227,7 +228,7 @@ bool BoundingObject::IsSphereColliding(BoundingObject* other)
 	if (this->m_v3CenterG.z - thisTheta > other->m_v3CenterG.z + otherTheta)
 		bColliding = false;
 
-	return bColliding;
+	return bColliding;*/
 }
 
 vector3 BoundingObject::GetColor(){ return this->color; }

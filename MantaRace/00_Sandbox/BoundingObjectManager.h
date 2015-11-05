@@ -3,7 +3,7 @@
 #include "RE\ReEngAppClass.h"
 #include "BoundingObject.h"
 #include <SFML\Graphics.hpp>
-
+#include <string.h>
 
 class BoundingObjectManager
 {
@@ -25,7 +25,7 @@ public:
 	void SwitchVisibility(BoundingObject* checker);
 
 	//Various methods
-	void AddBox();
+	void AddBox(String,std::vector<vector3>);
 	void RenderBO(MeshManagerSingleton*);
 	void CheckCollisions();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);

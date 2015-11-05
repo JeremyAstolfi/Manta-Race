@@ -13,8 +13,8 @@ void AppClass::InitVariables(void)
 {
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Creeper.obj", "Creeper");
-	bObjManager->AddBox();
-	bObjManager->AddBox();
+	bObjManager->AddBox("Steve",m_pMeshMngr->GetVertexList("Steve"));
+	bObjManager->AddBox("Creeper",m_pMeshMngr->GetVertexList("Creeper"));
 }
 
 void AppClass::Update(void)
@@ -32,14 +32,13 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(-2.5f,0.0f,0.0f)) * ToMatrix4(m_qArcBall), "Steve");
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(2.5f, 0.0f, 0.0f)), "Creeper");
-	bObjManager->RenderBO(m_pMeshMngr);
+
+
 
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[0]->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[1]->GetPosition()), "Creeper");
-
-
+	bObjManager->boundingObjects[0]->SetVisibility(true);
+	bObjManager->RenderBO(m_pMeshMngr);
 	//Adds all loaded instance to the render list
 	
 	m_pMeshMngr->AddInstanceToRenderList("ALL");

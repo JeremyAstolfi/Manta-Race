@@ -15,6 +15,7 @@ class AppClass : public ReEngAppClass
 {
 public:
 	typedef ReEngAppClass super;
+	
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
 

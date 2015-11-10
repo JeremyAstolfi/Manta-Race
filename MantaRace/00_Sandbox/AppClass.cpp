@@ -1,4 +1,5 @@
 #include "AppClass.h"
+MantaRayControls* MantaRayControls::instance = nullptr;
 void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("Sandbox"); // Window Name
@@ -12,12 +13,14 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 
+
 	//m_pMeshMngr->LoadModel("MantaRay\\Ray_HighPoly.obj", "Manta");
 	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
 
 	
 	
 
+	
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
@@ -68,39 +71,9 @@ void AppClass::Update(void)
 	v3MousePos = vector3(mouseGetPosition.x, mouseGetPosition.y, mouseGetPosition.z);
 	
 
-	if (bObjManager->boundingObjects[0]->IsSphereColliding(bObjManager->boundingObjects[1]))
-	{
-		bObjManager->boundingObjects[0]->SetColor(vector3(1.0f, 0.0f, 0.0f));
-		bObjManager->boundingObjects[1]->SetColor(vector3(1.0f, 0.0f, 0.0f));
-	}
-	else
-	{
-		bObjManager->boundingObjects[0]->SetColor(vector3(1.0f, 0.0f, 1.0f));
-		bObjManager->boundingObjects[1]->SetColor(vector3(1.0f, 0.0f, 1.0f));
-	}
-
-
-	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[0]->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
-	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[1]->GetPosition()), "Creeper");
-	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(.5f)), "crosshair");
-	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f)), "Manta Ray");
-
-	bObjManager->boundingObjects[0]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
-	bObjManager->boundingObjects[1]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"));
-
-	bObjManager->boundingObjects[0]->SetVisibility(true);
-	bObjManager->boundingObjects[1]->SetVisibility(true);
-	//bObjManager->RenderBO(m_pMeshMngr);
-	//Adds all loaded instance to the render list
-
-
-	m_pMeshMngr->AddCubeToQueue(glm::translate(bObjManager->boundingObjects[0]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[0]->GetHalfWidthGlobal() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
-	m_pMeshMngr->AddCubeToQueue(glm::translate(bObjManager->boundingObjects[1]->GetCenterGlobal()) * glm::scale(bObjManager->boundingObjects[1]->GetHalfWidthGlobal() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
-
-	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[0]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[0]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[0]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[0]->GetColor(), WIRE);
-	m_pMeshMngr->AddCubeToQueue(bObjManager->boundingObjects[1]->GetModelMatrix() * glm::translate(IDENTITY_M4, bObjManager->boundingObjects[1]->GetCenterLocal()) * glm::scale(bObjManager->boundingObjects[1]->GetHalfWidthLocal() * 2.0f), bObjManager->boundingObjects[1]->GetColor(), WIRE);
-\
 	
+
+
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 

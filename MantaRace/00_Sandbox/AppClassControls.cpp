@@ -1,11 +1,10 @@
 #include "AppClass.h"
 
-#include "MantaRayControls.h"
 
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
-	float fSpeed = 0.01f;
+	float fSpeed = 0.1f;
 
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
@@ -25,26 +24,29 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Camera Positioning
-	if(bModifier)
-		fSpeed *= 10.0f;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-
+	//if(bModifier)
+		//fSpeed *= 10.0f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		mantaRay->MoveVertical(fSpeed);
 		//m_pCameraMngr->MoveForward(fSpeed);
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		m_pCameraMngr->MoveForward(-fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		mantaRay->MoveVertical(-fSpeed);
+		//m_pCameraMngr->MoveForward(-fSpeed);
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		m_pCameraMngr->MoveSideways(-fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		mantaRay->MoveSideways(-fSpeed);
+		//m_pCameraMngr->MoveSideways(-fSpeed);
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		m_pCameraMngr->MoveSideways(fSpeed);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		mantaRay->MoveSideways(fSpeed);
+		//m_pCameraMngr->MoveSideways(fSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		m_pCameraMngr->MoveVertical(-fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		m_pCameraMngr->MoveVertical(fSpeed);
+		m_pCameraMngr->MoveVertical(fSpeed);*/
 #pragma endregion
 	
 #pragma region Creeper Control

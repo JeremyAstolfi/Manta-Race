@@ -1,5 +1,4 @@
 #include "MantaRayControls.h"
-#include <math.h>
 
 MantaRayControls* MantaRayControls::instance = nullptr;
 MantaRayControls::MantaRayControls()
@@ -20,27 +19,13 @@ void MantaRayControls::MoveForward(float velocity)
 // Moves the ray sideways
 void MantaRayControls::MoveSideways(float velocity)
 {
-	if (abs(rayPosition.x) <= 2.0f)
-	{
 		SetPosition(vector3(velocity, 0.0f, 0.0f));
-	}
-	else
-	{
-		SetPosition(vector3(-velocity, 0.0f, 0.0f));
-	}
 }
 
 // Move the ray vertically
 void MantaRayControls::MoveVertical(float velocity)
 {
-	if (abs(rayPosition.y) <= 1.0f)
-	{
 		SetPosition(vector3(0.0f, velocity, 0.0f));
-	}
-	else
-	{
-		SetPosition(vector3(0.0f, -velocity, 0.0f));
-	}
 }
 
 

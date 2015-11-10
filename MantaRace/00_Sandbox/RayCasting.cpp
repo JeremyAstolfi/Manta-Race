@@ -19,7 +19,7 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	//vector3 dir = direction.Normalize();
 	float r = radius; 
 	float b = glm::dot(dist, direction); //project the distance onto direction
-	float c = glm::dot(dist, dist) - r * r;
+	float c = glm::dot(dist, dist) - r * r; //distance squared - radius squared
 
 	// Exit if r’s origin outside s (c > 0) and r pointing away from s (b > 0)
 	if (c > 0.0f && b > 0.0f){
@@ -45,4 +45,8 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	}
 	//distance t in direction added to origin point yields the magical point of intersection
 	return &(position + t * direction);
+}
+
+vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius){
+
 }

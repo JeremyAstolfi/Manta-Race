@@ -33,6 +33,9 @@
     <ClCompile Include="MantaRayControls.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RayCasting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\res\Resource.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MantaRayControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCasting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

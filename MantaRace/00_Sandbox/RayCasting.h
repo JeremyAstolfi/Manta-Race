@@ -12,5 +12,6 @@ public:
 	~RayCasting();
 
 	static vector3* SphereCollision(vector3 position, vector3 direction, vector3 center, float radius);
+	static vector3* PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius);
 };
 

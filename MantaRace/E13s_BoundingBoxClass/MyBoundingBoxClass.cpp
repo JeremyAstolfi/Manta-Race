@@ -202,11 +202,6 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* const a_pOther)
 
 bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 {
-	vector3 tHalfWidth = m_v3HalfWidth;
-	vector3 oHalfWidth = a_pOther->GetHalfWidth;
-
-	vector3 tCenter = m_v3CenterG;
-	vector3 oCenter = a_pOther->GetCenterGlobal;
 
 	// Each element of this list contains a vector of two points that form an edge;
 	std::vector<std::vector<vector3>> Edges;
@@ -222,33 +217,74 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 	oEdge0.push_back(a_pOther->v3Corner[1]);
 	oEdges.push_back(Edge0);
 	oEdge0.pop_back();
-	Edge0.pop_back();
+	oEdge0.pop_back();
 
-	std::vector<vector3> Edge0;
 	Edge0.push_back(v3Corner[0]);
 	Edge0.push_back(v3Corner[2]);
 	Edges.push_back(Edge0);
 	Edge0.pop_back();
 	Edge0.pop_back();
-	std::vector<vector3> oEdge0;
+
 	oEdge0.push_back(a_pOther->v3Corner[0]);
 	oEdge0.push_back(a_pOther->v3Corner[2]);
 	oEdges.push_back(Edge0);
 	oEdge0.pop_back();
-	Edge0.pop_back();
+	oEdge0.pop_back();
 
-	std::vector<vector3> Edge0;
+
 	Edge0.push_back(v3Corner[0]);
 	Edge0.push_back(v3Corner[4]);
 	Edges.push_back(Edge0);
 	Edge0.pop_back();
 	Edge0.pop_back();
-	std::vector<vector3> oEdge0;
+
 	oEdge0.push_back(a_pOther->v3Corner[0]);
 	oEdge0.push_back(a_pOther->v3Corner[4]);
 	oEdges.push_back(Edge0);
 	oEdge0.pop_back();
-	Edge0.pop_back();
+	oEdge0.pop_back();
 	
+	for (int i = 0; i < 3; i++)
+	{
+		//cross product of edge 1 and the other objects edge 1,
+		// edge 1 is the vector produced from subtracting corner 0 from corner 1;
+		vector3 m = glm::cross(Edges[0][1] - Edges[0][0], oEdges[0][1] - oEdges[0][0]);
+		if (m != vector3(0.0f))
+		{
+			//potential seperating axis
+			//taken from page 163 of orange book
+			float r = (glm::distance(Edges[0][1] , Edges[0][0]) * abs(glm::dot(m, glm::normalize(Edges[0][1] - Edges[0][0]))))+
+				(glm::distance(Edges[1][1], Edges[1][0]) * abs(glm::dot(m, glm::normalize(Edges[1][1] - Edges[1][0])))) +
+				(glm::distance(Edges[2][1] , Edges[2][0]) * abs(glm::dot(m, glm::normalize(Edges[2][1] - Edges[2][0]))));
+			float s = glm::distance(m, m_v3CenterG);
+			if (abs(s) <= r)
+			{
+				return true;
+			}
+		}
+		else
+		{// page 159 of orange book
+			vector3 n = glm::cross(Edges[i][1] - Edges[i][0], oEdges[i][0] - Edges[i][0]);
+			m = glm::cross(Edges[i][1] - Edges[i][0], n);
+			if (m != vector3(0.0f))
+			{
+				//potential seperating axis
+				//taken from page 163 of orange book
+				float r = (glm::distance(Edges[0][1], Edges[0][0]) * abs(glm::dot(m, glm::normalize(Edges[0][1] - Edges[0][0])))) +
+					(glm::distance(Edges[1][1], Edges[1][0]) * abs(glm::dot(m, glm::normalize(Edges[1][1] - Edges[1][0])))) +
+					(glm::distance(Edges[2][1], Edges[2][0]) * abs(glm::dot(m, glm::normalize(Edges[2][1] - Edges[2][0]))));
+				float s = glm::distance(m, m_v3CenterG);
+				if (abs(s) <= r)
+				{
+					return true;
+				}
+			}
+
+		}
+			
+	}
+
+
+
 	return false;
 }

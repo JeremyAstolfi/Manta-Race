@@ -46,7 +46,7 @@ void AppClass::Update(void)
 
 	//Add a representation of the Spheres to the render list
 	vector3 v3Color = REWHITE;
-	if (m_pBB1->IsColliding(m_pBB2))
+	if (m_pBB1->SeperationAxisTest(m_pBB2))
 		v3Color = RERED;
 
 	m_pMeshMngr->AddCubeToQueue(glm::translate(m_pBB1->GetCenterGlobal()) * glm::scale(m_pBB1->GetHalfWidthG() * 2.0f), v3Color, WIRE);

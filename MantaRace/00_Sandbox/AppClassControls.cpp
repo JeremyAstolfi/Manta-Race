@@ -23,7 +23,7 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Camera Positioning
-/*	if(bModifier)
+	if(bModifier)
 		fSpeed *= 10.0f;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		m_pCameraMngr->MoveForward(fSpeed);
@@ -41,7 +41,7 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(-fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		m_pCameraMngr->MoveVertical(fSpeed);*/
+		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 	
 #pragma region Creeper Control
@@ -76,9 +76,11 @@ void AppClass::ProcessMouse(void)
 	m_bArcBall = false;
 	m_bFPC = false;
 	
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
-		mantaRay->FireRay(vector2((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y));
-
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		vector3 difference = mantaRay->GetPosition() - vector3((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y, 0.0f);
+		m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4 * glm::translate(mantaRay->GetPosition())* glm::rotate(90.0f,difference.z,difference.x,difference.y) *glm::scale(1.0f, 10.0f, 1.0f), vector3(255.0f), SOLID);
+	}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
 		m_bArcBall = true;
 	

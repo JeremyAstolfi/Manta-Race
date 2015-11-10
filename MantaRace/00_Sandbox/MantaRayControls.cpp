@@ -43,11 +43,7 @@ void MantaRayControls::MoveVertical(float velocity)
 	}
 }
 
-void MantaRayControls::FireRay(vector2 mousePos)
-{
-	float length = glm::distance(vector3(mousePos, 0), rayPosition);
-	meshManager->AddCylinderToQueue(IDENTITY_M4 * glm::scale(0.0f, length, 0.0f), vector3(255.0f), SOLID);
-}
+
 
 // Sets the ray's position
 void MantaRayControls::SetPosition(vector3 changeInPosition)

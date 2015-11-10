@@ -1,5 +1,5 @@
 #include "AppClass.h"
-MantaRayControls* MantaRayControls::instance = nullptr;
+
 void AppClass::InitWindow(String a_sWindowName)
 {
 	super::InitWindow("Sandbox"); // Window Name
@@ -16,11 +16,6 @@ void AppClass::InitVariables(void)
 
 	//m_pMeshMngr->LoadModel("MantaRay\\Ray_HighPoly.obj", "Manta");
 	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
-
-	
-	
-
-	
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
@@ -73,7 +68,7 @@ void AppClass::Update(void)
 
 	
 
-
+	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(0.5f)), "crosshair");
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 

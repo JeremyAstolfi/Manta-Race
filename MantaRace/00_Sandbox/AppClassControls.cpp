@@ -1,4 +1,5 @@
 #include "AppClass.h"
+#include "MantaRayControls.h"
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
@@ -25,7 +26,8 @@ void AppClass::ProcessKeyboard(void)
 	if(bModifier)
 		fSpeed *= 10.0f;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		m_pCameraMngr->MoveForward(fSpeed);
+
+		//m_pCameraMngr->MoveForward(fSpeed);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		m_pCameraMngr->MoveForward(-fSpeed);

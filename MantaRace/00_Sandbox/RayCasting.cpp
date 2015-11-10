@@ -47,6 +47,40 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	return &(position + t * direction);
 }
 
-vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius){
+//returns reference to colliding point between ray from [posiition] in [direction] with plane having [normal] and is [distance] from origin
+vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 normal, float distance){
+	//P = P0 + tV
+	//point of intersection if position plus (direction scaled to length t)
+	//t is -(P0 * N + d)/( V * N )
+	//thats negative of (position  projected onto normal plus distance) divided by direction projected onto normal
+	
+	//formula for a plain: ax + by + cz + d = 0
+	//<abc> is noraml, <xyz> is desired point, d is distance from point 0
+	//distance should be equal to ( postion.x *normal.x plus that for y and for z) plus d
+	float dist = (position.x*normal.x + position.y*normal.y + position.z * normal.z) + distance;
 
+	//project direction onto normal
+	float dot1 = glm::dot(direction, normal);
+	//determine if ray is parallel to plane
+	if (dot1 == 0){
+		return nullptr;
+	}
+
+	//how far ray travels before collision
+	float d = (( glm::dot(position,normal) + dist) / dot1);
+
+	if (d < 0){ //d is negative, plane exists behind ray
+		return nullptr;
+	}
+
+	//return point of collision
+	return &(position + direction*d);
+}
+
+//returns a reference to the point of collision between ray from [position] in [direction] with triangle surface spanning points p1-3
+//order of points are most likely relevant to the direction of the normal
+vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vector3 p1, vector3 p2, vector3 p3){
+	//calculate plane normal and distance using points
+	//run plane colision to get point, then test if point is within triangle
+	return nullptr;
 }

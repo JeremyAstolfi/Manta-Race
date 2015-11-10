@@ -52,6 +52,7 @@ public:
 	Output: ---
 	*/
 	~MyBoundingBoxClass(void);
+	vector3 v3Corner[8];
 
 	/*
 	Method: Swap
@@ -119,6 +120,7 @@ public:
 	Output: bool -> check of the collision
 	*/
 	bool IsColliding(MyBoundingBoxClass* const a_pOther);
+	bool SeperationAxisTest(MyBoundingBoxClass* const a_pOther);
 
 private:
 	/*

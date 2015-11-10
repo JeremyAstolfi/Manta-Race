@@ -115,7 +115,7 @@ void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 
 	m_m4ToWorld = a_m4ToWorld;
 	//Calculate the vertex that makes the box
-	vector3 v3Corner[8];
+
 	v3Corner[0] = vector3(m_v3Min.x, m_v3Min.y, m_v3Min.z);
 	v3Corner[1] = vector3(m_v3Max.x, m_v3Min.y, m_v3Min.z);
 	v3Corner[2] = vector3(m_v3Min.x, m_v3Max.y, m_v3Min.z);
@@ -198,4 +198,57 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* const a_pOther)
 		bColliding = false;
 
 	return bColliding;
+}
+
+bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
+{
+	vector3 tHalfWidth = m_v3HalfWidth;
+	vector3 oHalfWidth = a_pOther->GetHalfWidth;
+
+	vector3 tCenter = m_v3CenterG;
+	vector3 oCenter = a_pOther->GetCenterGlobal;
+
+	// Each element of this list contains a vector of two points that form an edge;
+	std::vector<std::vector<vector3>> Edges;
+	std::vector<std::vector<vector3>> oEdges;
+	std::vector<vector3> Edge0;
+	Edge0.push_back(v3Corner[0]);
+	Edge0.push_back(v3Corner[1]);
+	Edges.push_back(Edge0);
+	Edge0.pop_back();
+	Edge0.pop_back();
+	std::vector<vector3> oEdge0;
+	oEdge0.push_back(a_pOther->v3Corner[0]);
+	oEdge0.push_back(a_pOther->v3Corner[1]);
+	oEdges.push_back(Edge0);
+	oEdge0.pop_back();
+	Edge0.pop_back();
+
+	std::vector<vector3> Edge0;
+	Edge0.push_back(v3Corner[0]);
+	Edge0.push_back(v3Corner[2]);
+	Edges.push_back(Edge0);
+	Edge0.pop_back();
+	Edge0.pop_back();
+	std::vector<vector3> oEdge0;
+	oEdge0.push_back(a_pOther->v3Corner[0]);
+	oEdge0.push_back(a_pOther->v3Corner[2]);
+	oEdges.push_back(Edge0);
+	oEdge0.pop_back();
+	Edge0.pop_back();
+
+	std::vector<vector3> Edge0;
+	Edge0.push_back(v3Corner[0]);
+	Edge0.push_back(v3Corner[4]);
+	Edges.push_back(Edge0);
+	Edge0.pop_back();
+	Edge0.pop_back();
+	std::vector<vector3> oEdge0;
+	oEdge0.push_back(a_pOther->v3Corner[0]);
+	oEdge0.push_back(a_pOther->v3Corner[4]);
+	oEdges.push_back(Edge0);
+	oEdge0.pop_back();
+	Edge0.pop_back();
+	
+	return false;
 }

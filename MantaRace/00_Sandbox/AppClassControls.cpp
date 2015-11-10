@@ -1,4 +1,5 @@
 #include "AppClass.h"
+
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
@@ -22,7 +23,7 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Camera Positioning
-	if(bModifier)
+/*	if(bModifier)
 		fSpeed *= 10.0f;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		m_pCameraMngr->MoveForward(fSpeed);
@@ -40,9 +41,9 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(-fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		m_pCameraMngr->MoveVertical(fSpeed);
+		m_pCameraMngr->MoveVertical(fSpeed);*/
 #pragma endregion
-
+	
 #pragma region Creeper Control
 	if (bModifier)
 		fSpeed *= 10.0f;
@@ -66,7 +67,8 @@ void AppClass::ProcessKeyboard(void)
 	ON_KEY_PRESS_RELEASE(F3, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOY));
 	ON_KEY_PRESS_RELEASE(F4, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOX));
 	static bool bFPSControll = false;
-	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
+	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll))
+		;
 #pragma endregion
 }
 void AppClass::ProcessMouse(void)
@@ -74,6 +76,9 @@ void AppClass::ProcessMouse(void)
 	m_bArcBall = false;
 	m_bFPC = false;
 	
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
+		mantaRay->FireRay(vector2((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y));
+
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
 		m_bArcBall = true;
 	

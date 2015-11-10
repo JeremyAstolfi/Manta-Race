@@ -48,5 +48,5 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 }
 
 vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius){
-
+	return nullptr;
 }

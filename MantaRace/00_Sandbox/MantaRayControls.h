@@ -5,7 +5,7 @@ class MantaRayControls
 {
 public:
 		static MantaRayControls* instance;	//Singleton of the Controls
-
+		MeshManagerSingleton* meshManager;
 		//vector3 m_v3Position = vector3(0.0f); //Manta Position
 		vector3 rayPosition = vector3(0.0f, 0.0f, -5.0f);
 		vector3 m_v3Forward; //Manta view vector
@@ -44,6 +44,8 @@ public:
 		///<summary> Move the ray vertically </summary>
 		void MoveVertical(float velocity);
 
+		///<summary> Draws a cylinder to display the laser </summary>
+		void FireRay(vector2);
 
 		///<summary> Sets the ray's position </summary>
 		void SetPosition(vector3 changeInPosition);

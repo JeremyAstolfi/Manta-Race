@@ -27,7 +27,7 @@ void AppClass::Update(void)
 
 	//First person camera movement
 	if (m_bFPC == true)
-		CameraRotation(); 
+	//	CameraRotation(); 
 
 	//Call the arcball method
 	ArcBall();

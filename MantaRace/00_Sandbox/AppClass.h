@@ -16,6 +16,8 @@ class AppClass : public ReEngAppClass
 public:
 	typedef ReEngAppClass super;
 	MantaRayControls* mantaRayControls = MantaRayControls::GetInstance();
+	sf::Vector2i mousePos;
+	vector3 v3MousePos;
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}

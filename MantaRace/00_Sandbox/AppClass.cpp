@@ -13,12 +13,17 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	//m_pMeshMngr->LoadModel("artAssets\\Ray_HighPoly.obj","MantaRay");
+	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
 	m_pMeshMngr->LoadModel("Minecraft\\MC_Steve.obj", "Steve");
 	//m_pMeshMngr->LoadModel("Minecraft\\MC_Creeper.obj", "Creeper");
 
 	//bObjManager->AddBox("MantaRay", m_pMeshMngr->GetVertexList("MantaRay"));
 	bObjManager->AddBox("Steve",m_pMeshMngr->GetVertexList("Steve"));
 	//bObjManager->AddBox("Creeper",m_pMeshMngr->GetVertexList("Creeper"));
+	bObjManager->AddBox("Creeper",m_pMeshMngr->GetVertexList("Creeper"));
+	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
+	v3MousePos = vector3(0.0f);
+	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
 }
 
 void AppClass::Update(void)
@@ -33,10 +38,32 @@ void AppClass::Update(void)
 	if (m_bFPC == true)
 		CameraRotation(); 
 
+	ProcessMouse();
+	
 	//Call the arcball method
 	ArcBall();
 
-	/*
+
+	matrix4 projection = m_pCameraMngr->GetViewMatrix() * m_pCameraMngr->GetProjectionMatrix();
+	matrix4 projInverse = glm::inverse(projection);
+
+	float in[4];
+	float winZ = 1.0f;
+
+	in[0] = (2.0f*((float)(mousePos.x - 0) / (float)m_pWindow->GetWidth())) - 1.0f;
+	in[1] = 1.0f -(2.0f*((float)mousePos.y - 0) / ((float)m_pWindow->GetHeight()));
+	in[2] = 2.0 * winZ - 1.0f;
+	in[3] = 1.0f;
+
+	vector4 tempMousePos = vector4(in[0], in[1], in[2], in[3]);
+	vector4 mouseGetPosition = projInverse * tempMousePos;
+	//mouseGetPosition.w = 1.0f * mouseGetPosition.w;
+	//mouseGetPosition.x *= mouseGetPosition.w;
+	//mouseGetPosition.y *= mouseGetPosition.w;
+	//mouseGetPosition.z *= mouseGetPosition.w;
+	v3MousePos = vector3(mouseGetPosition.x, mouseGetPosition.y, mouseGetPosition.z);
+	
+
 	if (bObjManager->boundingObjects[0]->IsSphereColliding(bObjManager->boundingObjects[1]))
 	{
 		bObjManager->boundingObjects[0]->SetColor(vector3(1.0f, 0.0f, 0.0f));
@@ -51,16 +78,16 @@ void AppClass::Update(void)
 
 	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRayControls->GetPosition()), "Steve");
 
-	/*
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[0]->GetPosition()) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(bObjManager->boundingObjects[1]->GetPosition()), "Creeper");
+	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(.5f)), "crosshair");
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0.0f)), "Manta Ray");
 
 	bObjManager->boundingObjects[0]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
 	bObjManager->boundingObjects[1]->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"));
 
 	bObjManager->boundingObjects[0]->SetVisibility(true);
 	bObjManager->boundingObjects[1]->SetVisibility(true);
-	*/
 
 	//bObjManager->RenderBO(m_pMeshMngr);
 	//Adds all loaded instance to the render list

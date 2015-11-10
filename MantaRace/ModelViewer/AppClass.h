@@ -18,6 +18,7 @@ public:
 
 	quaternion m_qOrientation;
 	String m_sSelectedObject = "";
+	vector3 crossHairPosition;
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow) : super(hInstance, lpCmdLine, nCmdShow) {}

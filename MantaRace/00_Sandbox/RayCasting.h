@@ -11,7 +11,14 @@ public:
 	RayCasting();
 	~RayCasting();
 
+	//returns a pointer to a position where a Ray from [position] in [direction] collides with a sphere at [center] with [radius]
 	static vector3* SphereCollision(vector3 position, vector3 direction, vector3 center, float radius);
-	static vector3* PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius);
+
+	//returns reference to colliding point between ray from [posiition] in [direction] with plane having [normal] and is [distance] from origin
+	static vector3* PlaneCollision(vector3 position, vector3 direction, vector3 normal, float distance);
+
+	//returns a reference to the point of collision between ray from [position] in [direction] with triangle surface spanning points p1-3
+	//order of points are most likely relevant to the direction of the normal
+	static vector3* TriangleCollision(vector3 position, vector3 direction, vector3 p1, vector3 p2, vector3 p3);
 };
 

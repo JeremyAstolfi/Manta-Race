@@ -79,4 +79,7 @@ void AppClass::ProcessMouse(void)
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		m_bFPC = true;
+	
+	AppClass::mousePos = sf::Mouse::getPosition();
+
 }

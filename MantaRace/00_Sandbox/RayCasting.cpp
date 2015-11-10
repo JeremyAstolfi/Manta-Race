@@ -47,6 +47,7 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	return &(position + t * direction);
 }
 
+<<<<<<< HEAD
 //returns reference to colliding point between ray from [posiition] in [direction] with plane having [normal] and is [distance] from origin
 vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 normal, float distance){
 	//P = P0 + tV
@@ -83,4 +84,8 @@ vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vect
 	//calculate plane normal and distance using points
 	//run plane colision to get point, then test if point is within triangle
 	return nullptr;
+=======
+vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3 center, float radius){
+	return &vector3(0.0f);
+>>>>>>> origin/master
 }

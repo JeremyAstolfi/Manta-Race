@@ -14,6 +14,9 @@ void MyBoundingBoxClass::Init(void)
 
 	m_v3HalfWidth = vector3(0.0f);
 	m_v3HalfWidthG = vector3(0.0f);
+	localAxes[0] = vector3(1.0f, 0.0f, 0.0f);
+	localAxes[1] = vector3(0.0f, 1.0f, 0.0f);
+	localAxes[2] = vector3(0.0f, 0.0f, 1.0f);
 }
 void MyBoundingBoxClass::Swap(MyBoundingBoxClass& other)
 {
@@ -202,7 +205,41 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* const a_pOther)
 
 bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 {
+	MyBoundingBoxClass* thisBox = this;
+	MyBoundingBoxClass* otherBox = a_pOther;
 
+	float ra, rb;
+	matrix4 r, absr;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; i < 3; j++)
+		{
+			r[i][j] = glm::dot(thisBox->localAxes[i], otherBox->localAxes[j]);
+		}
+	}
+	
+	vector3 t = otherBox->GetCenterGlobal() - thisBox->GetCenterGlobal();
+
+	t = vector3(glm::dot(t, thisBox->localAxes[0]), glm::dot(t, thisBox->localAxes[1]), glm::dot(t, thisBox->localAxes[2]));
+	
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			absr[i][j] = abs(r[i][j]) + std::numeric_limits<float>::epsilon();;
+
+	vector3 thisE[3];
+	thisE[0] = thisBox->GetHalfWidth.x;
+	thisE[1] = thisBox->GetHalfWidth.y;
+	thisE[2] = thisBox->GetHalfWidth.z;
+
+	vector3 otherE[3];
+	otherE[0] = otherBox->GetHalfWidth.x;
+	otherE[1] = otherBox->GetHalfWidth.y;
+	otherE[2] = otherBox->GetHalfWidth.z;
+
+	for (int i = 0; i < 3; i++);
+
+	/*
 	// Each element of this list contains a vector of two points that form an edge;
 	std::vector<std::vector<vector3>> Edges;
 	std::vector<std::vector<vector3>> oEdges;
@@ -282,7 +319,7 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 
 		}
 			
-	}
+	}*/
 
 
 

@@ -81,11 +81,30 @@ vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3
 
 //returns a reference to the point of collision between ray from [position] in [direction] with triangle surface spanning points p1-3
 //order of points are most likely relevant to the direction of the normal
-//vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vector3 p1, vector3 p2, vector3 p3){
+vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vector3 p1, vector3 p2, vector3 p3){
 	//calculate plane normal and distance using points
 	//run plane colision to get point, then test if point is within triangle
+	//normal = (p1-p2)x(p1-p3)
+	//d = normal.x * (any point, lets say p1).x + n.y * p.y + n.z * p.z
+	vector3 norm = glm::cross(p1 - p2, p1 - p3);
+
+	float d = norm.x*p1.x + norm.y*p1.y + norm.z*p1.z;
+
+	vector3* intersection = PlaneCollision(position, direction, norm, d);
+
+	//if ray does not intersect with triangles plane, it can't possibly intersect triangle
+	if (intersection != nullptr){
+
+		//determine if point is within triangle
+		//attempting "Barycentric Technique"
+
+	}
 
 	//return nullptr;
 
-	//return nullptr;
-//}
+	return intersection;
+}
+
+//BoxCollision
+//call tricollision 12 times?
+//create squarecollision and call 6 times?

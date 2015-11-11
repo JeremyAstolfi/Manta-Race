@@ -14,9 +14,6 @@ void MyBoundingBoxClass::Init(void)
 
 	m_v3HalfWidth = vector3(0.0f);
 	m_v3HalfWidthG = vector3(0.0f);
-	localAxes[0] = vector3(1.0f, 0.0f, 0.0f);
-	localAxes[1] = vector3(0.0f, 1.0f, 0.0f);
-	localAxes[2] = vector3(0.0f, 0.0f, 1.0f);
 }
 void MyBoundingBoxClass::Swap(MyBoundingBoxClass& other)
 {
@@ -207,13 +204,23 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 {
 	MyBoundingBoxClass* thisBox = this;
 	MyBoundingBoxClass* otherBox = a_pOther;
+	
+	matrix4 thisModelMatrix = thisBox->GetModelMatrix();
+	thisBox->localAxes[0] = vector3(thisModelMatrix[0][0], thisModelMatrix[0][1], thisModelMatrix[0][2]);
+	thisBox->localAxes[1] = vector3(thisModelMatrix[1][0], thisModelMatrix[1][1], thisModelMatrix[1][2]);
+	thisBox->localAxes[2] = vector3(thisModelMatrix[2][0], thisModelMatrix[2][1], thisModelMatrix[2][2]);
+
+	matrix4 otherModelMatrix = otherBox->GetModelMatrix();
+	otherBox->localAxes[0] = vector3(otherModelMatrix[0][0], otherModelMatrix[0][1], otherModelMatrix[0][2]);
+	otherBox->localAxes[1] = vector3(otherModelMatrix[1][0], otherModelMatrix[1][1], otherModelMatrix[1][2]);
+	otherBox->localAxes[2] = vector3(otherModelMatrix[2][0], otherModelMatrix[2][1], otherModelMatrix[2][2]);
 
 	float ra, rb;
 	matrix4 r, absr;
 
 	for (int i = 0; i < 3; i++)
 	{
-		for (int j = 0; i < 3; j++)
+		for (int j = 0; j < 3; j++)
 		{
 			r[i][j] = glm::dot(thisBox->localAxes[i], otherBox->localAxes[j]);
 		}
@@ -227,17 +234,27 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 		for (int j = 0; j < 3; j++)
 			absr[i][j] = abs(r[i][j]) + std::numeric_limits<float>::epsilon();;
 
-	vector3 thisE[3];
-	thisE[0] = thisBox->GetHalfWidth.x;
-	thisE[1] = thisBox->GetHalfWidth.y;
-	thisE[2] = thisBox->GetHalfWidth.z;
+	float thisE[3];
+	thisE[0] = thisBox->GetHalfWidth().x;
+	thisE[1] = thisBox->GetHalfWidth().y;
+	thisE[2] = thisBox->GetHalfWidth().z;
 
-	vector3 otherE[3];
-	otherE[0] = otherBox->GetHalfWidth.x;
-	otherE[1] = otherBox->GetHalfWidth.y;
-	otherE[2] = otherBox->GetHalfWidth.z;
+	float otherE[3];
+	otherE[0] = otherBox->GetHalfWidth().x;
+	otherE[1] = otherBox->GetHalfWidth().y;
+	otherE[2] = otherBox->GetHalfWidth().z;
 
-	for (int i = 0; i < 3; i++);
+	for (int i = 0; i < 3; i++){
+		ra = thisE[i];
+		rb = otherE[0] * absr[i][0] + otherE[1] * absr[1][i] + otherE[2] * absr[i][2];
+		if (abs(t[i]) > ra + rb)
+			return true;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+
+	}
 
 	/*
 	// Each element of this list contains a vector of two points that form an edge;

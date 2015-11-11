@@ -232,7 +232,7 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 	
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			absr[i][j] = abs(r[i][j]) + std::numeric_limits<float>::epsilon();;
+			absr[i][j] = abs(r[i][j]) + std::numeric_limits<float>::epsilon();
 
 	float thisE[3];
 	thisE[0] = thisBox->GetHalfWidth().x;
@@ -246,16 +246,57 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 
 	for (int i = 0; i < 3; i++){
 		ra = thisE[i];
-		rb = otherE[0] * absr[i][0] + otherE[1] * absr[1][i] + otherE[2] * absr[i][2];
+		rb = otherE[0] * absr[i][0] + otherE[1] * absr[i][1] + otherE[2] * absr[i][2];
 		if (abs(t[i]) > ra + rb)
-			return true;
+			return false;
 	}
 
-	for (int i = 0; i < 3; i++)
-	{
-
+	for (int i = 0; i < 3; i++) {
+		ra = thisE[0] * absr[0][i] + thisE[1] * absr[1][i] + thisE[2] * absr[2][i];
+		rb = otherE[i];
+		if (abs(t[0] * r[0][i] + t[1] * r[1][i] + t[2] * r[2][i]) > ra + rb) return false;
 	}
 
+	ra = thisE[1] * absr[2][0] + thisE[2] * absr[1][0];
+	rb = otherE[1] * absr[0][2] + otherE[2] * absr[0][1];
+	if (abs(t[2] * r[1][0] - t[1] * r[2][0]) > ra + rb) return false;
+
+	ra = thisE[1] * absr[2][1] + thisE[2] * absr[1][1];
+	rb = otherE[0] * absr[0][2] + otherE[2] * absr[0][0];
+	if (abs(t[2] * r[1][1] - t[1] * r[2][1]) > ra + rb) return false;
+
+	ra = thisE[1] * absr[2][2] + thisE[2] * absr[1][2];
+	rb = otherE[0] * absr[0][1] + otherE[1] * absr[0][0];
+	if (abs(t[2] * r[1][2] - t[1] * r[2][2]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[2][0] + thisE[2] * absr[0][0];
+	rb = otherE[1] * absr[1][2] + otherE[2] * absr[1][1];
+
+	if (abs(t[0] * r[2][0] - t[2] * r[0][0]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[2][1] + thisE[2] * absr[0][1];
+	rb = otherE[0] * absr[1][2] + otherE[2] * absr[1][0];
+	if (abs(t[0] * r[2][1] - t[2] * r[0][1]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[2][2] + thisE[2] * absr[0][2];
+	rb = otherE[0] * absr[1][1] + otherE[1] * absr[1][0];
+	if (abs(t[0] * r[2][2] - t[2] * r[0][2]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[1][0] + thisE[1] * absr[0][0];
+	rb = otherE[1] * absr[2][2] + otherE[2] * absr[2][1];
+	if (abs(t[1] * r[0][0] - t[0] * r[1][0]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[1][1] + thisE[1] * absr[0][1];
+	rb = otherE[0] * absr[2][2] + otherE[2] * absr[2][0];
+	if (abs(t[1] * r[0][1] - t[0] * r[1][1]) > ra + rb) return false;
+
+	ra = thisE[0] * absr[1][2] + thisE[1] * absr[0][2];
+	rb = otherE[0] * absr[2][1] + otherE[1] * absr[2][0];
+	if (abs(t[1] * r[0][2] - t[0] * r[1][2]) > ra + rb) return false;
+
+	// Since no separating axis is found, the OBBs must be intersecting
+	return true;
+}
 	/*
 	// Each element of this list contains a vector of two points that form an edge;
 	std::vector<std::vector<vector3>> Edges;
@@ -340,5 +381,5 @@ bool MyBoundingBoxClass::SeperationAxisTest(MyBoundingBoxClass* const a_pOther)
 
 
 
-	return false;
-}
+	//return false;
+//}

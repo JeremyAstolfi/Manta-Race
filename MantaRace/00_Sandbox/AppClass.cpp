@@ -57,12 +57,12 @@ void AppClass::Update(void)
 	in[2] = 2.0 * winZ - 1.0f;
 	in[3] = 1.0f;
 
+
+	in[1] = MapValue(in[1], 0.0f, 1.0f, 0.0f, 9.0f);
+	in[0] = MapValue(in[0], 0.0f, 1.0f, 0.0f, 11.0f);
 	vector4 tempMousePos = vector4(in[0], in[1], in[2], in[3]);
 	vector4 mouseGetPosition = projInverse * tempMousePos;
-	//mouseGetPosition.w = 1.0f * mouseGetPosition.w;
-	//mouseGetPosition.x *= mouseGetPosition.w;
-	//mouseGetPosition.y *= mouseGetPosition.w;
-	//mouseGetPosition.z *= mouseGetPosition.w;
+
 	v3MousePos = vector3(mouseGetPosition.x, mouseGetPosition.y, mouseGetPosition.z);
 	
 
@@ -80,6 +80,10 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+	m_pMeshMngr->Print("X Mouse Coordinate:");
+	m_pMeshMngr->Print(std::to_string(in[0]), RERED);
+	m_pMeshMngr->Print("Y Mouse Coordinate:");
+	m_pMeshMngr->Print(std::to_string(in[1]), RERED);
 }
 
 void AppClass::Display(void)

@@ -16,6 +16,7 @@ void AppClass::InitVariables(void)
 
 	//m_pMeshMngr->LoadModel("MantaRay\\Ray_HighPoly.obj", "Manta");
 	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
+	m_pMeshMngr->LoadModel("MantaRace\\newManta.obj", "MantaRay");
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
@@ -39,36 +40,15 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
-
-
-
 	//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4*glm::scale(0.25f,10.0f,0.25f), vector3(255.0f,0.0f,255.0f), SOLID);
 	//m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Manta");
 
 
-	matrix4 projection = m_pCameraMngr->GetViewMatrix() * m_pCameraMngr->GetProjectionMatrix();
-	matrix4 projInverse = glm::inverse(projection);
 
-	float in[4];
-	float winZ = 1.0f;
-
-	in[0] = (2.0f*((float)(mousePos.x - 0) / (float)m_pWindow->GetWidth())) - 1.0f;
-	in[1] = 1.0f -(2.0f*((float)mousePos.y - 0) / ((float)m_pWindow->GetHeight()));
-	in[2] = 2.0 * winZ - 1.0f;
-	in[3] = 1.0f;
-
-
-	in[1] = MapValue(in[1], 0.0f, 1.0f, 0.0f, 9.0f);
-	in[0] = MapValue(in[0], 0.0f, 1.0f, 0.0f, 11.0f);
-	vector4 tempMousePos = vector4(in[0], in[1], in[2], in[3]);
-	vector4 mouseGetPosition = projInverse * tempMousePos;
-
-	v3MousePos = vector3(mouseGetPosition.x, mouseGetPosition.y, mouseGetPosition.z);
+	v3MousePos = vector3(GetMousePosition().x, GetMousePosition().y, GetMousePosition().z);
 	
-
-	
-
 	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(0.5f)), "crosshair");
+	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.5f, .5f, -.5f)), "MantaRay");
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -80,10 +60,6 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
-	m_pMeshMngr->Print("X Mouse Coordinate:");
-	m_pMeshMngr->Print(std::to_string(in[0]), RERED);
-	m_pMeshMngr->Print("Y Mouse Coordinate:");
-	m_pMeshMngr->Print(std::to_string(in[1]), RERED);
 }
 
 void AppClass::Display(void)
@@ -115,4 +91,25 @@ void AppClass::Display(void)
 void AppClass::Release(void)
 {
 	super::Release(); //release the memory of the inherited fields
+}
+
+vector4 AppClass::GetMousePosition(void)
+{
+	matrix4 projection = m_pCameraMngr->GetViewMatrix() * m_pCameraMngr->GetProjectionMatrix();
+	matrix4 projInverse = glm::inverse(projection);
+
+	float in[4];
+	float winZ = 1.0f;
+
+	in[0] = (2.0f*((float)(mousePos.x - 0) / (float)m_pWindow->GetWidth())) - 1.0f;
+	in[1] = 1.0f - (2.0f*((float)mousePos.y - 0) / ((float)m_pWindow->GetHeight()));
+	in[2] = 2.0 * winZ - 1.0f;
+	in[3] = 1.0f;
+
+
+	in[1] = MapValue(in[1], 0.0f, 1.0f, 0.0f, 9.0f);
+	in[0] = MapValue(in[0], 0.0f, 1.0f, 0.0f, 11.0f);
+	vector4 tempMousePos = vector4(in[0], in[1], in[2], in[3]);
+	vector4 mouseGetPosition = projInverse * tempMousePos;
+	return mouseGetPosition;
 }

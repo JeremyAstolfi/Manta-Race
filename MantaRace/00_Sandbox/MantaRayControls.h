@@ -49,6 +49,7 @@ public:
 	vector3 GetPosition(void);
 
 
+
 private:
 	///<summary> Constructor </summary>
 	MantaRayControls(void);

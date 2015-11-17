@@ -23,6 +23,7 @@ public:
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}
 	BoundingObjectManager* bObjManager = BoundingObjectManager::GetInstance();
 	MantaRayControls* mantaRay = MantaRayControls::GetInstance();
+	vector4 GetMousePosition(void);
 	/*
 	ReadConfig
 	Reads the configuration of the application to a file

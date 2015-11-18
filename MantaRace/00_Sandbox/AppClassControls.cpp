@@ -31,28 +31,49 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
+<<<<<<< HEAD
+		if (mantaRay->GetPosition().y < 2.5f)
+			mantaRay->MoveVertical(fSpeed);
+	}
+=======
 		mantaRay->MoveVertical(fSpeed);
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		//m_pCameraMngr->MoveForward(fSpeed);
 		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
+<<<<<<< HEAD
+		if (mantaRay->GetPosition().y>-2.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveVertical(-fSpeed);
+	}
 		//m_pCameraMngr->MoveForward(-fSpeed);
 		keyUp = false;
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
+<<<<<<< HEAD
+		if (mantaRay->GetPosition().x>-4.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(-fSpeed);
+	}
 		//m_pCameraMngr->MoveSideways(-fSpeed);
 		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
+<<<<<<< HEAD
+		if (mantaRay->GetPosition().x<4.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(fSpeed);
+	}
 		//m_pCameraMngr->MoveSideways(fSpeed);
 		keyUp = false;
 	}
@@ -105,11 +126,9 @@ void AppClass::ProcessMouse(void)
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		vector3 difference = mantaRay->GetPosition() - vector3((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y, 0.0f);
-		//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4 * glm::translate(mantaRay->GetPosition())* glm::rotate(90.0f,difference.z,difference.x,difference.y) *glm::scale(1.0f, 10.0f, 1.0f), vector3(255.0f), SOLID);
-		for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 8; i++)
 		{
-			m_pMeshMngr->AddLineToRenderList(mantaRay->GetPosition(), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
+			m_pMeshMngr->AddLineToRenderList(vector3(mantaRay->GetPosition().x, mantaRay->GetPosition().y, mantaRay->GetPosition().z-1.0f), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
 		}
 		}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))

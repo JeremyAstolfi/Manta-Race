@@ -6,13 +6,15 @@ class MantaRayControls
 {
 
 public:
-		static MantaRayControls* instance;	//Singleton of the Controls
-		MeshManagerSingleton* meshManager;
-		//vector3 m_v3Position = vector3(0.0f); //Manta Position
-	
-	vector3 rayPosition = vector3(0.0f, 0.0f, 3.0f);
+	static MantaRayControls* instance;	//Singleton of the Controls
+	MeshManagerSingleton* meshManager;
+
+	vector3 rayPosition = vector3(0.0f, 0.0f, 3.0f);//Manta Position
+	vector3 rayVelocity = vector3(0.0f, 0.0f, 0.0f);//Manta Velocity
+	vector3 rayAcceleration = vector3(0.0f, 0.0f, 0.0f);//Manta Acceleration
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector
+
 	///<summary> Constructs the singleton pointer </summary>
 	static MantaRayControls* GetInstance(){
 		if (instance == nullptr)
@@ -37,20 +39,31 @@ public:
 	///<summary> Move the ray vertically </summary>
 	void MoveVertical(float velocity);
 
-
-	///<summary> Sets the ray's position </summary>
+	///<summary> Sets the ray's position through addition</summary>
 	void SetPosition(vector3 changeInPosition);
 
+	///<summary> Sets the ray's velocity through addition</summary>
+	void SetVelocity(vector3 changeInVelocity);
 
-		///<summary> Draws a cylinder to display the laser </summary>
-		void FireRay(vector2);
+	///<summary> Sets the ray's acceleration through addition</summary>
+	void SetAcceleration(vector3 changeInAcceleration);
+
+	///<summary> Draws a cylinder to display the laser </summary>
+	void FireRay(vector2);
 
 	///<summary> Returns the ray's position </summary>
 	vector3 GetPosition(void);
 
+	///<summary> Returns the ray's velocity </summary>
+	vector3 GetVelocity(void);
 
+	///<summary> Returns the ray's acceleration </summary>
+	vector3 GetAcceleration(void);
 
 private:
+	//Boundaries within the manta must be contained
+	vector3 boundary = vector3(0.0f);
+
 	///<summary> Constructor </summary>
 	MantaRayControls(void);
 

@@ -6,6 +6,7 @@ void AppClass::ProcessKeyboard(void)
 	bool bModifier = false;
 	float fSpeed = 0.1f;
 
+
 #pragma region ON PRESS/RELEASE DEFINITION
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
@@ -28,31 +29,48 @@ void AppClass::ProcessKeyboard(void)
 		//fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
+<<<<<<< HEAD
 		if (mantaRay->GetPosition().y < 2.5f)
 			mantaRay->MoveVertical(fSpeed);
 	}
+=======
+		mantaRay->MoveVertical(fSpeed);
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		//m_pCameraMngr->MoveForward(fSpeed);
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
+<<<<<<< HEAD
 		if (mantaRay->GetPosition().y>-2.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveVertical(-fSpeed);
 	}
 		//m_pCameraMngr->MoveForward(-fSpeed);
+	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
+<<<<<<< HEAD
 		if (mantaRay->GetPosition().x>-4.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(-fSpeed);
 	}
 		//m_pCameraMngr->MoveSideways(-fSpeed);
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
+<<<<<<< HEAD
 		if (mantaRay->GetPosition().x<4.5f)
+=======
+>>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(fSpeed);
 	}
 		//m_pCameraMngr->MoveSideways(fSpeed);
+	}
 
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		m_pCameraMngr->MoveVertical(-fSpeed);
@@ -62,6 +80,7 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 	
 #pragma region Creeper Control
+	/*
 	if (bModifier)
 		fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -75,6 +94,7 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		bObjManager->boundingObjects[0]->SetPosition(vector3(0.0f, 0.1f, 0.0f));
+		*/
 #pragma endregion
 
 #pragma region Other Actions

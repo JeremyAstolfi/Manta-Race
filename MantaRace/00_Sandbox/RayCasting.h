@@ -20,5 +20,9 @@ public:
 	//returns a reference to the point of collision between ray from [position] in [direction] with triangle surface spanning points p1-3
 	//order of points are most likely relevant to the direction of the normal
 	static vector3* TriangleCollision(vector3 position, vector3 direction, vector3 p1, vector3 p2, vector3 p3);
+
+	//determines if ray from [position] in [direction] intersects with box with specified verticies
+	//make sure to use sphere collision first, it's much faster
+	static vector3* BoxCollision(vector3 position, vector3 direction, std::vector<vector3> verts);
 };
 

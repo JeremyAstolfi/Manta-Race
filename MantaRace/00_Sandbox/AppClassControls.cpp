@@ -84,13 +84,18 @@ void AppClass::ProcessMouse(void)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		vector3 difference = mantaRay->GetPosition() - vector3((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y, 0.0f);
-		m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4 * glm::translate(mantaRay->GetPosition())* glm::rotate(90.0f,difference.z,difference.x,difference.y) *glm::scale(1.0f, 10.0f, 1.0f), vector3(255.0f), SOLID);
-	}
+		//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4 * glm::translate(mantaRay->GetPosition())* glm::rotate(90.0f,difference.z,difference.x,difference.y) *glm::scale(1.0f, 10.0f, 1.0f), vector3(255.0f), SOLID);
+		for (int i = 0; i < 8; i++)
+		{
+			m_pMeshMngr->AddLineToRenderList(mantaRay->GetPosition(), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
+		}
+		}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
 		m_bArcBall = true;
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		m_bFPC = true;
+
 	
 	AppClass::mousePos = sf::Mouse::getPosition();
 

@@ -18,6 +18,9 @@ class AppClass : public ReEngAppClass
 
 	vector3 m_v3O1 = vector3(-2.5f, 0.0f, 0.0f);
 	vector3 m_v3O2 = vector3( 2.5f, 0.0f, 0.0f);
+
+	//for use in stopping when hitting an object
+	int i_lastCollDir = 0; // 1=>, 2=^, 3=<, 4=v, 5=away, 6=towards
 public:
 	typedef ReEngAppClass super;
 

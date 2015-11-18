@@ -43,20 +43,71 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 
-#pragma region Creeper Control
+#pragma region Creeper Control	
 	if (bModifier)
 		fSpeed *= 10.0f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_v3O1.x -= 0.1f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_v3O1.x += 0.1f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		//check previous direction and whether it is colliding
+		if (i_lastCollDir = 1 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.x += 0.02f; //bounce back to prevent sticking
+		}
+		else{ //if it not colliding, move it
+			m_v3O1.x -= 0.01f;
+			i_lastCollDir = 1;
+		}
+	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		m_v3O1.y -= 0.1f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		if (i_lastCollDir = 3 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.x -= 0.02f;
+		}
+		else{
+			m_v3O1.x += 0.01f;
+			i_lastCollDir = 3;
+		}
+	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		m_v3O1.y += 0.1f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+		if (i_lastCollDir = 4 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.y += 0.02f;
+		}
+		else{
+			m_v3O1.y -= 0.01f;
+			i_lastCollDir = 4;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		if (i_lastCollDir = 2 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.y -= 0.02f;
+		}
+		else{
+			m_v3O1.y += 0.01f;
+			i_lastCollDir = 2;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown)){
+		if (i_lastCollDir = 5 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.z += 0.02f;
+		}
+		else{
+			m_v3O1.z -= 0.01f;
+			i_lastCollDir = 5;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageUp)){
+		if (i_lastCollDir = 6 && (m_pBB1->SeperationAxisTest(m_pBB2))){
+			m_v3O1.z -= 0.02f;
+		}
+		else{
+			m_v3O1.z += 0.01f;
+			i_lastCollDir = 6;
+		}
+	}
+	
 #pragma endregion
 
 #pragma region Other Actions

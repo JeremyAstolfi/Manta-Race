@@ -4,7 +4,7 @@
 void AppClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
-	float fSpeed = 0.1f;
+	float fSpeed = 0.001f;
 
 
 #pragma region ON PRESS/RELEASE DEFINITION
@@ -27,28 +27,39 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Camera Positioning
 	//if(bModifier)
 		//fSpeed *= 10.0f;
+	bool keyUp = true;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		mantaRay->MoveVertical(fSpeed);
 		//m_pCameraMngr->MoveForward(fSpeed);
+		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		mantaRay->MoveVertical(-fSpeed);
 		//m_pCameraMngr->MoveForward(-fSpeed);
+		keyUp = false;
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		mantaRay->MoveSideways(-fSpeed);
 		//m_pCameraMngr->MoveSideways(-fSpeed);
+		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		mantaRay->MoveSideways(fSpeed);
 		//m_pCameraMngr->MoveSideways(fSpeed);
+		keyUp = false;
+	}
+
+	if (keyUp)
+	{
+		mantaRay->SetAcceleration(vector3(0.0f));
 	}
 
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))

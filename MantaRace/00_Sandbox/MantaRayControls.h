@@ -12,6 +12,9 @@ public:
 	vector3 rayPosition = vector3(0.0f, 0.0f, 3.0f);//Manta Position
 	vector3 rayVelocity = vector3(0.0f, 0.0f, 0.0f);//Manta Velocity
 	vector3 rayAcceleration = vector3(0.0f, 0.0f, 0.0f);//Manta Acceleration
+	float rayMass = 1.0f;
+	float rayMaxAcceleration = 0.001f;
+	float rayFriction = 0.005f;
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector
 
@@ -30,6 +33,9 @@ public:
 		}
 	}
 
+	///<summary> Updates physics and any other events that occur within the Manta Ray Controls
+	void Update(void);
+
 	///<summary> Moves the ray forward, NOTE: This is currently not implemented </summary>
 	void MoveForward(float velocity);
 
@@ -40,13 +46,13 @@ public:
 	void MoveVertical(float velocity);
 
 	///<summary> Sets the ray's position through addition</summary>
-	void SetPosition(vector3 changeInPosition);
+	void SetPosition(vector3 _position);
 
 	///<summary> Sets the ray's velocity through addition</summary>
-	void SetVelocity(vector3 changeInVelocity);
+	void SetVelocity(vector3 _velocity);
 
 	///<summary> Sets the ray's acceleration through addition</summary>
-	void SetAcceleration(vector3 changeInAcceleration);
+	void SetAcceleration(vector3 _acceleration);
 
 	///<summary> Draws a cylinder to display the laser </summary>
 	void FireRay(vector2);
@@ -59,6 +65,15 @@ public:
 
 	///<summary> Returns the ray's acceleration </summary>
 	vector3 GetAcceleration(void);
+
+	///<summary> Set the max value the ray can accelerate </summary>
+	void SetMaxAcc(float _maxAcceleration);
+
+	///<summary> Set mass for the ray </summary>
+	void SetMass(float _mass);
+
+	///<summary> Set friction to oppose the ray's acceleration </summary>
+	void SetFriction(float _friction);
 
 private:
 	//Boundaries within the manta must be contained

@@ -41,7 +41,7 @@ void AppClass::Update(void)
 	//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4*glm::scale(0.25f,10.0f,0.25f), vector3(255.0f,0.0f,255.0f), SOLID);
 	//m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Manta");
 
-
+	mantaRay->Update();
 
 	v3MousePos = vector3(GetMousePosition().x, GetMousePosition().y, GetMousePosition().z);
 	

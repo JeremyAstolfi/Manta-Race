@@ -11,55 +11,100 @@ MantaRayControls::~MantaRayControls()
 {
 }
 
-//Moves the ray forward, NOTE: This is currently not implemented
-void MantaRayControls::MoveForward(float velocity)
+void MantaRayControls::Update(void)
 {
-	SetPosition(vector3(rayPosition.x, rayPosition.y, rayPosition.z + velocity));
-}
+	vector3 v3Acceleration = rayAcceleration / rayMass;
+	v3Acceleration = glm::clamp(v3Acceleration, -rayMaxAcceleration, rayMaxAcceleration);
+	rayVelocity += v3Acceleration;
+	rayPosition += rayVelocity;
 
-// Moves the ray sideways
-void MantaRayControls::MoveSideways(float velocity)
-{
+	if (rayVelocity != vector3(0.0f))
+	{
+		if (rayVelocity.x > 0.0f)
+		{
+			rayAcceleration.x -= rayFriction;
+		}
+		if (rayVelocity.x < 0.0f)
+		{
+			rayAcceleration.x += rayFriction;
+		}
+		if (rayVelocity.y > 0.0f)
+		{
+			rayAcceleration.y -= rayFriction;
+		}
+		if (rayVelocity.y < 0.0f)
+		{
+			rayAcceleration.y += rayFriction;
+		}
+		if (rayVelocity.z > 0.0f)
+		{
+			rayAcceleration.z -= rayFriction;
+		}
+		if (rayVelocity.z < 0.0f)
+		{
+			rayAcceleration.z += rayFriction;
+		}
+	}
+
 	if (rayPosition.x > boundary.x)
 	{
-		SetPosition(vector3(boundary.x, rayPosition.y, rayPosition.z));
+		SetPosition(vector3(boundary.x + rayAcceleration.x, rayPosition.y, rayPosition.z));
+		SetAcceleration(vector3(0.0f));
+		SetVelocity(vector3(0.0f));
 	}
 	else if (rayPosition.x < -boundary.x)
 	{
-		SetPosition(vector3(-boundary.x + velocity, rayPosition.y, rayPosition.z));
+		SetPosition(vector3(-boundary.x + rayAcceleration.x, rayPosition.y, rayPosition.z));
+		SetAcceleration(vector3(0.0f));
+		SetVelocity(vector3(0.0f));
 	}
-	else
-	{
-		SetPosition(vector3(rayPosition.x + velocity, rayPosition.y, rayPosition.z));
-	}
-}
 
-// Move the ray vertically
-void MantaRayControls::MoveVertical(float velocity)
-{
 	if (rayPosition.y > boundary.y)
 	{
-		SetPosition(vector3(rayPosition.x, boundary.y, rayPosition.z));
+		SetPosition(vector3(rayPosition.x, boundary.y + rayAcceleration.y, rayPosition.z));
+		SetAcceleration(vector3(0.0f));
+		SetVelocity(vector3(0.0f));
 	}
 	else if (rayPosition.y < -boundary.y)
 	{
-		SetPosition(vector3(rayPosition.x, -boundary.y + velocity, rayPosition.z));
-	}
-	else
-	{
-		SetPosition(vector3(rayPosition.x, rayPosition.y + velocity, rayPosition.z));
+		SetPosition(vector3(rayPosition.x, -boundary.y + rayAcceleration.y, rayPosition.z));
+		SetAcceleration(vector3(0.0f));
+		SetVelocity(vector3(0.0f));
 	}
 }
 
+//Moves the ray forward, NOTE: This is currently not implemented
+void MantaRayControls::MoveForward(float acceleration)
+{
+	SetAcceleration(vector3(rayAcceleration.x, rayAcceleration.y, rayAcceleration.z + acceleration));
+}
+
+// Moves the ray sideways
+void MantaRayControls::MoveSideways(float acceleration)
+{
+	SetAcceleration(vector3(rayAcceleration.x + acceleration, rayAcceleration.y, rayAcceleration.z));
+}
+
+// Move the ray vertically
+void MantaRayControls::MoveVertical(float acceleration)
+{
+	SetAcceleration(vector3(rayAcceleration.x, rayAcceleration.y + acceleration, rayAcceleration.z));
+}
+
 // Sets the ray's position
-void MantaRayControls::SetPosition(vector3 changeInPosition){ rayPosition = changeInPosition; }
+void MantaRayControls::SetPosition(vector3 _position){ rayPosition = _position; }
 // Returns the ray's position
 vector3 MantaRayControls::GetPosition(void){ return rayPosition; }
 // Sets the ray's velocity
-void MantaRayControls::SetVelocity(vector3 changeInVelocity){ rayVelocity = changeInVelocity; }
+void MantaRayControls::SetVelocity(vector3 _velocity){ rayVelocity = _velocity; }
 // Returns the ray's velocity
 vector3 MantaRayControls::GetVelocity(void){ return rayVelocity; }
 // Sets the ray's acceleration
-void MantaRayControls::SetAcceleration(vector3 changeInAcceleration) { rayAcceleration = changeInAcceleration; }
+void MantaRayControls::SetAcceleration(vector3 _acceleration) { rayAcceleration = _acceleration; }
 // Return the ray's acceleration
 vector3 MantaRayControls::GetAcceleration(void) { return rayAcceleration; }
+// Sets the ray's max acceleration
+void MantaRayControls::SetMaxAcc(float _maxAcceleration) { rayMaxAcceleration = _maxAcceleration; }
+// Sets the ray's mass
+void MantaRayControls::SetMass(float _mass) { rayMass = _mass; }
+void MantaRayControls::SetFriction(float _friction) { rayFriction = _friction; }

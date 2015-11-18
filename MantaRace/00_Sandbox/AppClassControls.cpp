@@ -27,19 +27,31 @@ void AppClass::ProcessKeyboard(void)
 	//if(bModifier)
 		//fSpeed *= 10.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		mantaRay->MoveVertical(fSpeed);
+	{
+		if (mantaRay->GetPosition().y < 2.5f)
+			mantaRay->MoveVertical(fSpeed);
+	}
 		//m_pCameraMngr->MoveForward(fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		if (mantaRay->GetPosition().y>-2.5f)
 		mantaRay->MoveVertical(-fSpeed);
+	}
 		//m_pCameraMngr->MoveForward(-fSpeed);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		if (mantaRay->GetPosition().x>-4.5f)
 		mantaRay->MoveSideways(-fSpeed);
+	}
 		//m_pCameraMngr->MoveSideways(-fSpeed);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		if (mantaRay->GetPosition().x<4.5f)
 		mantaRay->MoveSideways(fSpeed);
+	}
 		//m_pCameraMngr->MoveSideways(fSpeed);
 
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
@@ -83,11 +95,9 @@ void AppClass::ProcessMouse(void)
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		vector3 difference = mantaRay->GetPosition() - vector3((float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y, 0.0f);
-		//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4 * glm::translate(mantaRay->GetPosition())* glm::rotate(90.0f,difference.z,difference.x,difference.y) *glm::scale(1.0f, 10.0f, 1.0f), vector3(255.0f), SOLID);
-		for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 8; i++)
 		{
-			m_pMeshMngr->AddLineToRenderList(mantaRay->GetPosition(), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
+			m_pMeshMngr->AddLineToRenderList(vector3(mantaRay->GetPosition().x, mantaRay->GetPosition().y, mantaRay->GetPosition().z-1.0f), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
 		}
 		}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))

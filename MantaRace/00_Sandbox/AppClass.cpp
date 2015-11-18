@@ -48,7 +48,7 @@ void AppClass::Update(void)
 	v3MousePos = vector3(GetMousePosition().x, GetMousePosition().y, GetMousePosition().z);
 	
 	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(0.5f)), "crosshair");
-	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.5f, .5f, -.5f)), "MantaRay");
+	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.33f, .33f, -.33f)), "MantaRay");
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 

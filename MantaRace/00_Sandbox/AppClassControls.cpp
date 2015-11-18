@@ -31,49 +31,28 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-<<<<<<< HEAD
-		if (mantaRay->GetPosition().y < 2.5f)
-			mantaRay->MoveVertical(fSpeed);
-	}
-=======
 		mantaRay->MoveVertical(fSpeed);
->>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		//m_pCameraMngr->MoveForward(fSpeed);
 		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-<<<<<<< HEAD
-		if (mantaRay->GetPosition().y>-2.5f)
-=======
->>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveVertical(-fSpeed);
-	}
 		//m_pCameraMngr->MoveForward(-fSpeed);
 		keyUp = false;
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-<<<<<<< HEAD
-		if (mantaRay->GetPosition().x>-4.5f)
-=======
->>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(-fSpeed);
-	}
 		//m_pCameraMngr->MoveSideways(-fSpeed);
 		keyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-<<<<<<< HEAD
-		if (mantaRay->GetPosition().x<4.5f)
-=======
->>>>>>> 74d3402e96aedb644ac6f0a88a0f5d335b612b1c
 		mantaRay->MoveSideways(fSpeed);
-	}
 		//m_pCameraMngr->MoveSideways(fSpeed);
 		keyUp = false;
 	}

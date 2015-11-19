@@ -24,5 +24,9 @@ public:
 	//determines if ray from [position] in [direction] intersects with box with specified verticies
 	//make sure to use sphere collision first, it's much faster
 	static vector3* BoxCollision(vector3 position, vector3 direction, std::vector<vector3> verts);
+	
+	//conplex object raycast collision
+	//takes vector of verticies and runs triangle collision many times
+	static vector3* ComplexObjectCollision(vector3 position, vector3 direction, std::vector<vector3> verts);
 };
 

@@ -210,4 +210,34 @@ vector3* RayCasting::BoxCollision(vector3 position, vector3 direction, std::vect
 	//this is my understanding of raycasting so far,it's possible I will have to change my approach when I make the complex object collision method
 }
 
-//square collision?
+
+//conplex object raycast collision
+//takes vector of verticies and runs triangle collision many times
+//in theory this is how complex collision will work, however I do not currently have sufficient understanding of where the verts vector comes from
+//if the verts are being stored in an order that is not linear, the loop will need to be adjusted
+vector3* RayCasting::ComplexObjectCollision(vector3 position, vector3 direction, std::vector<vector3> verts){
+	if (verts.size() < 3){ //not enough verts for a single tri
+		return nullptr;
+	}
+	//if a point of intersection is found on any tri, return it
+	int size = verts.size();
+	vector3* triTest;
+	for (int v = 0; v < size-2; v++){
+		triTest = TriangleCollision(position, direction, verts[v], verts[v+1], verts[v+2]);
+		if (triTest != nullptr){
+			return triTest;
+		}
+	}
+	//special case, connect final verts back around with initial verts
+	triTest = TriangleCollision(position, direction, verts[size-2], verts[size-1], verts[0]);
+	if (triTest != nullptr){
+		return triTest;
+	}
+	triTest = TriangleCollision(position, direction, verts[size-1], verts[0], verts[1]);
+	if (triTest != nullptr){
+		return triTest;
+	}
+
+	//no collision, return null
+	return nullptr;
+}

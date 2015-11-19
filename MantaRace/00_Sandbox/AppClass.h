@@ -9,6 +9,7 @@ Date: 2015/09
 #include <SFML\Graphics.hpp>
 #include "BoundingObjectManager.h"
 #include "MantaRayControls.h"
+#include "EnemyObjectManager.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -18,6 +19,8 @@ public:
 	
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
+	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
+	int enemies = 20;
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}

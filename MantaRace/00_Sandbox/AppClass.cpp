@@ -18,7 +18,17 @@ void AppClass::InitVariables(void)
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
-
+	for (int i = 0; i < enemies; i++)
+	{
+		m_pEOManage->AddEntity("Enemy" + i);
+		float xRand = static_cast <float> (rand()) / (static_cast <float>(RAND_MAX / (4.0f - -4.0f)));
+		float yRand = static_cast <float> (rand()) / (static_cast <float>(RAND_MAX / (4.0f - -4.0f)));
+		float zRand = static_cast <float> (rand()) / (static_cast <float>(RAND_MAX / (-100.0f - -300.0f)));
+		EnemyObject* temp = m_pEOManage->GetEntity(i);
+		temp->SetPosition(vector3(xRand, yRand, zRand));
+		temp->SetVelocity(vector3(0.0f, 0.0f, 1.0f));
+		m_pMeshMngr->LoadModel("MantaRace\\mine.obj", "Mine"+i);
+	}
 }
 
 void AppClass::Update(void)
@@ -41,6 +51,13 @@ void AppClass::Update(void)
 	mantaRay->Update();
 
 	v3MousePos = vector3(GetMousePosition().x, GetMousePosition().y, GetMousePosition().z);
+
+	//enemies
+	for (int i = 0; i < m_pEOManage->GetEntityCount(); i++)
+	{
+		EnemyObject* temp = m_pEOManage->GetEntity(i);
+		m_pMeshMngr->SetModelMatrix(glm::translate(temp->GetPosition()) * glm::scale(vector3(0.25f)), "Mine");
+	}
 	
 	//Updates the crosshairs
 	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(0.5f)), "crosshair");

@@ -22,35 +22,35 @@ void MantaRayControls::Update(void)
 	{
 		if (rayVelocity.x > 0.0f)
 		{
-			rayAcceleration.x -= rayFriction;
+			rayVelocity.x -= rayFriction;
 		}
 		if (rayVelocity.x < 0.0f)
 		{
-			rayAcceleration.x += rayFriction;
+			rayVelocity.x += rayFriction;
 		}
 		if (rayVelocity.y > 0.0f)
 		{
-			rayAcceleration.y -= rayFriction;
+			rayVelocity.y -= rayFriction;
 		}
 		if (rayVelocity.y < 0.0f)
 		{
-			rayAcceleration.y += rayFriction;
+			rayVelocity.y += rayFriction;
 		}
 		if (rayVelocity.z > 0.0f)
 		{
-			rayAcceleration.z -= rayFriction;
+			rayVelocity.z -= rayFriction;
 		}
 		if (rayVelocity.z < 0.0f)
 		{
-			rayAcceleration.z += rayFriction;
+			rayVelocity.z += rayFriction;
 		}
 	}
 
 	if (rayPosition.x > boundary.x)
 	{
 		SetPosition(vector3(boundary.x + rayAcceleration.x, rayPosition.y, rayPosition.z));
-		SetAcceleration(vector3(0.0f));
-		SetVelocity(vector3(0.0f));
+		SetAcceleration(vector3(0.0f, rayAcceleration.y, rayAcceleration.z));
+		SetVelocity(vector3(0.0f, rayVelocity.y, rayVelocity.z));
 	}
 	else if (rayPosition.x < -boundary.x)
 	{
@@ -62,8 +62,8 @@ void MantaRayControls::Update(void)
 	if (rayPosition.y > boundary.y)
 	{
 		SetPosition(vector3(rayPosition.x, boundary.y + rayAcceleration.y, rayPosition.z));
-		SetAcceleration(vector3(0.0f));
-		SetVelocity(vector3(0.0f));
+		SetAcceleration(vector3(rayAcceleration.x, 0.0f, rayAcceleration.z));
+		SetVelocity(vector3(rayVelocity.x, 0.0f, rayVelocity.z));
 	}
 	else if (rayPosition.y < -boundary.y)
 	{

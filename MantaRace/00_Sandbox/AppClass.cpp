@@ -7,7 +7,7 @@ void AppClass::InitWindow(String a_sWindowName)
 	// Set the clear color based on Microsoft's CornflowerBlue (default in XNA)
 	//if this line is in Init Application it will depend on the .cfg file, if it
 	//is on the InitVariables it will always force it regardless of the .cfg
-	m_v4ClearColor = vector4(0.2f, 0.3f, 0.45f, 0.0f);
+	m_v4ClearColor = vector4(0.2f, 0.3f, 0.65f, 0.0f);
 }
 
 void AppClass::InitVariables(void)
@@ -38,14 +38,14 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
-	//m_pMeshMngr->AddCylinderToQueue(IDENTITY_M4*glm::scale(0.25f,10.0f,0.25f), vector3(255.0f,0.0f,255.0f), SOLID);
-	//m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Manta");
-
 	mantaRay->Update();
 
 	v3MousePos = vector3(GetMousePosition().x, GetMousePosition().y, GetMousePosition().z);
 	
+	//Updates the crosshairs
 	m_pMeshMngr->SetModelMatrix(glm::translate(v3MousePos) * glm::scale(vector3(0.5f)), "crosshair");
+
+	//Updates the manta ray
 	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.33f, .33f, -.33f)), "MantaRay");
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -63,25 +63,6 @@ void AppClass::Update(void)
 void AppClass::Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window
-
-	/*
-	//Render the grid based on the camera's mode:
-	switch (m_pCameraMngr->GetCameraMode())
-	{
-	default: //Perspective
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY); //renders the XY grid with a 100% scale
-		break;
-	case CAMERAMODE::CAMROTHOX:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::YZ, RERED * 0.75f); //renders the YZ grid with a 100% scale
-		break;
-	case CAMERAMODE::CAMROTHOY:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ, REGREEN * 0.75f); //renders the XZ grid with a 100% scale
-		break;
-	case CAMERAMODE::CAMROTHOZ:
-		m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
-		break;
-	}
-	*/
 	
 	m_pMeshMngr->Render(); //renders the render list
 

@@ -9,12 +9,12 @@ public:
 	static MantaRayControls* instance;	//Singleton of the Controls
 	MeshManagerSingleton* meshManager;
 
-	vector3 rayPosition = vector3(0.0f, 0.0f, 3.0f);//Manta Position
-	vector3 rayVelocity = vector3(0.0f, 0.0f, 0.0f);//Manta Velocity
-	vector3 rayAcceleration = vector3(0.0f, 0.0f, 0.0f);//Manta Acceleration
+	vector3 rayPosition = vector3(0.0f, 0.0f, 3.0f); //Manta Position
+	vector3 rayVelocity = vector3(0.0f, 0.0f, 0.0f); //Manta Velocity
+	vector3 rayAcceleration = vector3(0.0f, 0.0f, 0.0f); //Manta Acceleration
 	float rayMass = 1.0f;
-	float rayMaxAcceleration = 0.01f;
-	float rayFriction = 0.001f;
+	float rayMaxAcceleration = 0.001f;
+	float rayFriction = 0.00025f;
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector
 

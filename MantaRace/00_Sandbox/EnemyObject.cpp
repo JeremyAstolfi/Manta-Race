@@ -81,6 +81,8 @@ EnemyObject::~EnemyObject()
 	Release();//Call deallocators
 }
 //Accessors
+void EnemyObject::SetVisibility(bool visible){ render = visible; }
+bool EnemyObject::GetVisibility(void){ return render; }
 void EnemyObject::SetPosition(vector3 a_v3Position){ m_v3Position = a_v3Position; }
 vector3 EnemyObject::GetPosition(void){ return m_v3Position; }
 void EnemyObject::SetVelocity(vector3 a_v3Velocity){ m_v3Velocity = a_v3Velocity; }
@@ -93,6 +95,9 @@ String EnemyObject::GetName(void) { return m_sName; }
 //---
 void EnemyObject::Update(void)
 {
+	
+	if (render)
+	{
 	//Calculate the acceleration based on the mass
 	vector3 v3Acceleration = m_v3Acceleration * (1.0f / m_fMass);
 	//Limit the acceleration based on the maximum acceleration for the object
@@ -105,10 +110,12 @@ void EnemyObject::Update(void)
 
 	//Set the model matrix for the objects
 	m_pMeshManager->SetModelMatrix(m4ToWorld, m_sName);
-//	m_pColliderManager->SetModelMatrix(m4ToWorld, m_sName);
+	//	m_pColliderManager->SetModelMatrix(m4ToWorld, m_sName);
 
 	//Display the objects
+
 	m_pMeshManager->AddInstanceToRenderList(m_sName);
-//	m_pColliderManager->DisplayReAlligned(m_sName);
+	//	m_pColliderManager->DisplayReAlligned(m_sName);
+	}
 }
 

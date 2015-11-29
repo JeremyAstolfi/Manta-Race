@@ -16,7 +16,7 @@ class EnemyObject
 
 	float m_fMass = 1.0f;	//Mass of the Entity
 	float m_fMaxAcc = 0.1f; //Limit of the acceleration of the entity
-
+	bool render = false; //true if the object should be rendered
 	String m_sName = ""; // Name index
 
 	BoundingObjectManager* m_pColliderManager = nullptr; //Collider manager
@@ -31,6 +31,8 @@ public:
 
 	~EnemyObject();
 
+	void SetVisibility(bool visible);
+
 	void Update(void);
 
 	void SetMaxAcc(float a_fMaxAcc);
@@ -43,6 +45,7 @@ public:
 
 	void SetAcceleration(vector3 a_v3Acceleration);
 
+	bool GetVisibility(void);
 	vector3 GetAcceleration(void);
 
 	vector3 GetPosition(void);

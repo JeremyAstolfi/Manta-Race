@@ -48,6 +48,8 @@ public:
 	bool GetVisibility(void);
 	vector3 GetAcceleration(void);
 
+	void SetScale(vector3 a_v3Scale);
+
 	vector3 GetPosition(void);
 	vector3 GetVelocity(void);
 	String GetName(void);

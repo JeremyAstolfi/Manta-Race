@@ -92,6 +92,7 @@ vector3 EnemyObject::GetAcceleration(void) { return m_v3Acceleration; }
 void EnemyObject::SetMaxAcc(float a_fMaxAcc) { m_fMaxAcc = a_fMaxAcc; }
 void EnemyObject::SetMass(float a_fMass){ m_fMass = a_fMass; }
 String EnemyObject::GetName(void) { return m_sName; }
+void EnemyObject::SetScale(vector3 a_v3Scale) { m_v3Scale = a_v3Scale; }
 //---
 void EnemyObject::Update(void)
 {
@@ -106,7 +107,7 @@ void EnemyObject::Update(void)
 	m_v3Velocity = m_v3Velocity + v3Acceleration;
 	//Set the position based on the position of this object and the acceleration
 	m_v3Position = m_v3Position + m_v3Velocity;
-	matrix4 m4ToWorld = glm::translate(m_v3Position);
+	matrix4 m4ToWorld = glm::translate(m_v3Position)*glm::scale(m_v3Scale);
 
 	//Set the model matrix for the objects
 	m_pMeshManager->SetModelMatrix(m4ToWorld, m_sName);

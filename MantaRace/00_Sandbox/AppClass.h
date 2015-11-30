@@ -20,7 +20,14 @@ public:
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
 	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
-	int enemies = 20;
+	int enemies = 200;
+
+	float xyCeiling = 8.0f;
+	float xyFloor = -8.0f;
+	float xyRange = xyCeiling - xyFloor;
+	float zCeiling = -1500.0f;
+	float zFloor = -750.0f;
+	float zRange = zCeiling - zFloor;
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}

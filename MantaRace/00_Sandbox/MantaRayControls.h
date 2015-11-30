@@ -15,6 +15,7 @@ public:
 	float rayMass = 1.0f;
 	float rayMaxAcceleration = 0.005f;
 	float rayFriction = 0.0005f;
+	float theta = 0.0f;
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector
 
@@ -44,6 +45,9 @@ public:
 
 	///<summary> Move the ray vertically </summary>
 	void MoveVertical(float velocity);
+
+	///<summary> Rotrate manta ray </summary>
+	void Rotate(float speed);
 
 	///<summary> Sets the ray's position through addition</summary>
 	void SetPosition(vector3 _position);

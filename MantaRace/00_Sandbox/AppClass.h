@@ -20,13 +20,16 @@ public:
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
 	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
-	int enemies = 200;
+	int enemies = 500;
 
-	float xyCeiling = 8.0f;
-	float xyFloor = -8.0f;
-	float xyRange = xyCeiling - xyFloor;
-	float zCeiling = -1500.0f;
-	float zFloor = -750.0f;
+	float yCeiling = 3.5f;
+	float yFloor = -3.5f;
+	float xCeiling = 7.0f;
+	float xFloor = -7.0f;
+	float yRange = yCeiling - yFloor;
+	float xRange = xCeiling - xFloor;
+	float zCeiling = -750.0f;
+	float zFloor = -375.0f;
 	float zRange = zCeiling - zFloor;
 
 	/* Constructor */

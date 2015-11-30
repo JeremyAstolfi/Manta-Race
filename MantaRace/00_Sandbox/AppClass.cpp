@@ -19,20 +19,20 @@ void AppClass::InitVariables(void)
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
-
 	for (int i = 0; i < enemies; i++)
 	{
 		m_pEOManage->AddEntity("Enemy" + i);
 		
-		float xRand = static_cast <float> (xyFloor + (xyRange * rand() / (RAND_MAX + 1.0f)));
-		float yRand = static_cast <float> (xyFloor + (xyRange * rand() / (RAND_MAX + 1.0f)));
+		float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
+		float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
 		float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		temp->SetPosition(vector3(xRand, yRand, zRand));
-		temp->SetVelocity(vector3(0.0f, 0.0f, .33f));
+		temp->SetVelocity(vector3(0.0f, 0.0f, .5f));
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine"+i);
+		temp->~EnemyObject();
 	}
 }
 
@@ -63,8 +63,8 @@ void AppClass::Update(void)
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		if (temp->GetPosition().z > 15.0f)
 		{
-			float xRand = static_cast <float> (xyFloor + (xyRange * rand() / (RAND_MAX + 1.0f)));
-			float yRand = static_cast <float> (xyFloor + (xyRange * rand() / (RAND_MAX + 1.0f)));
+			float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
+			float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
 			float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 
 			temp->SetPosition(vector3(xRand,yRand,zRand));

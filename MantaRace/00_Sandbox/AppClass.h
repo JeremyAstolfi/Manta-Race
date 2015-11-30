@@ -32,6 +32,9 @@ public:
 	float zFloor = -375.0f;
 	float zRange = zCeiling - zFloor;
 
+	int tempX = 0;
+	int tempY = 0;
+
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}
 	BoundingObjectManager* bObjManager = BoundingObjectManager::GetInstance();

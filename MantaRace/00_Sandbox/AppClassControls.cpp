@@ -25,36 +25,70 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Camera Positioning
-	bool keyUp = true;
+	bool xKeyUp = true;
+	bool yKeyUp = true;
+	int xValue = 0;
+	int yValue = 0;
+	vector3 rayAcc = mantaRay->GetAcceleration();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		mantaRay->MoveVertical(fSpeed);
-		keyUp = false;
+		if (tempY < 0)
+		{
+			mantaRay->SetAcceleration(vector3(rayAcc.x, 0.0f, rayAcc.z));
+		}
+		yValue += 1;
+		yKeyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		mantaRay->MoveVertical(-fSpeed);
-		keyUp = false;
+		if (tempY > 0)
+		{
+			mantaRay->SetAcceleration(vector3(rayAcc.x, 0.0f, rayAcc.z));
+		}
+		yValue -= 1;
+		yKeyUp = false;
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		mantaRay->MoveSideways(-fSpeed);
-		keyUp = false;
+		if (tempX > 0)
+		{
+			mantaRay->SetAcceleration(vector3(0.0f, rayAcc.y, rayAcc.z));
+		}
+		xValue -= 1;
+		xKeyUp = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		mantaRay->MoveSideways(fSpeed);
-		keyUp = false;
+		if (tempX < 0)
+		{
+			mantaRay->SetAcceleration(vector3(0.0f, rayAcc.y, rayAcc.z));
+		}
+		xValue += 1;
+		xKeyUp = false;
 	}
 
-	if (keyUp)
+
+	if (yKeyUp && !xKeyUp)
+	{
+		mantaRay->SetAcceleration(vector3(rayAcc.x, 0.0f, rayAcc.z));
+	}
+	if (xKeyUp && !yKeyUp)
+	{
+		mantaRay->SetAcceleration(vector3(0.0f, rayAcc.y, rayAcc.z));
+	}
+	if (xKeyUp && yKeyUp)
 	{
 		mantaRay->SetAcceleration(vector3(0.0f));
 	}
+	
+	tempX = xValue;
+	tempY = yValue;
+	mantaRay->MoveVertical(fSpeed * yValue);
+	mantaRay->MoveSideways(fSpeed * xValue);
 
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		m_pCameraMngr->MoveVertical(-fSpeed);

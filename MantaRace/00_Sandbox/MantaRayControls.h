@@ -13,7 +13,7 @@ public:
 	vector3 rayVelocity = vector3(0.0f, 0.0f, 0.0f); //Manta Velocity
 	vector3 rayAcceleration = vector3(0.0f, 0.0f, 0.0f); //Manta Acceleration
 	float rayMass = 1.0f;
-	float rayMaxAcceleration = 0.005f;
+	float rayMaxAcceleration = 0.00125f;
 	float rayFriction = 0.0005f;
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector

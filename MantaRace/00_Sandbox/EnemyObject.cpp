@@ -15,6 +15,8 @@ void EnemyObject::Init(void)
 
 	m_pColliderManager = BoundingObjectManager::GetInstance();
 	m_pMeshManager = MeshManagerSingleton::GetInstance();
+
+	boIndex = m_pColliderManager->AddBox("Mine", m_pMeshManager->GetVertexList("Mine")); //initialize a bounding object and save its index
 }
 void EnemyObject::Swap(EnemyObject& other)
 {
@@ -117,6 +119,9 @@ void EnemyObject::Update(void)
 
 	m_pMeshManager->AddInstanceToRenderList(m_sName);
 	//	m_pColliderManager->DisplayReAlligned(m_sName);
+
+	//update bounding object's matrix
+	m_pColliderManager->boundingObjects[boIndex]->SetModelMatrix(m4ToWorld);
 	}
 }
 

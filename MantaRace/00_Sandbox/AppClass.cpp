@@ -34,6 +34,7 @@ void AppClass::InitVariables(void)
 		m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine"+i);
 		temp->~EnemyObject();
 	}
+
 }
 
 void AppClass::Update(void)
@@ -80,6 +81,9 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.33f, .33f, -.33f)), "MantaRay");
 
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
+
+	//this line renders all bounding objects that are tagged as visible (default)
+	//bObjManager->RenderBO(m_pMeshMngr);
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();

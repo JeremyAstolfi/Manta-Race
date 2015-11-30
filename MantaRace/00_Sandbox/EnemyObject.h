@@ -19,6 +19,8 @@ class EnemyObject
 	bool render = false; //true if the object should be rendered
 	String m_sName = ""; // Name index
 
+	int boIndex; //index of bounding object
+
 	BoundingObjectManager* m_pColliderManager = nullptr; //Collider manager
 	MeshManagerSingleton* m_pMeshManager = nullptr;//Mesh Manager
 

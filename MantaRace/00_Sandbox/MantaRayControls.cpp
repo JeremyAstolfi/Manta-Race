@@ -108,3 +108,6 @@ void MantaRayControls::SetMaxAcc(float _maxAcceleration) { rayMaxAcceleration = 
 // Sets the ray's mass
 void MantaRayControls::SetMass(float _mass) { rayMass = _mass; }
 void MantaRayControls::SetFriction(float _friction) { rayFriction = _friction; }
+
+//Roates Ray
+void MantaRayControls::Rotate(float speed) { theta += speed; }

@@ -70,6 +70,14 @@ void AppClass::ProcessKeyboard(void)
 		xValue += 1;
 		xKeyUp = false;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		mantaRay->Rotate(-fSpeed);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		mantaRay->Rotate(fSpeed);
+	}
 
 
 	if (yKeyUp && !xKeyUp)

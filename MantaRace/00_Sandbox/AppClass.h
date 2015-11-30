@@ -22,13 +22,13 @@ public:
 	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
 	int enemies = 500;
 
-	float yCeiling = 3.5f;
-	float yFloor = -3.5f;
-	float xCeiling = 7.0f;
-	float xFloor = -7.0f;
+	float yCeiling = 3.0f;
+	float yFloor = -3.0f;
+	float xCeiling = 5.0f;
+	float xFloor = -5.0f;
 	float yRange = yCeiling - yFloor;
 	float xRange = xCeiling - xFloor;
-	float zCeiling = -750.0f;
+	float zCeiling = -1450.0f;
 	float zFloor = -375.0f;
 	float zRange = zCeiling - zFloor;
 

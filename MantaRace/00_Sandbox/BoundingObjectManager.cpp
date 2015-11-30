@@ -48,12 +48,13 @@ void BoundingObjectManager::SetBOVisibility(BoundingObject* checker, bool visibl
 //various methods
 
 //Add a new Bounding Object to the list
-void BoundingObjectManager::AddBox(String model,std::vector<vector3> vertLists){
+int BoundingObjectManager::AddBox(String model,std::vector<vector3> vertLists){
 	BoundingObject* adder = new BoundingObject(vertLists);
 	adder->Model = model;
 	
 	boundingObjects.push_back(adder);
-	boundingObjects[boundingObjects.size() - 1]->SetPosition(vector3(2.5f * (boundingObjects.size() - 1), 0.0f, 0.0f));
+	//boundingObjects[boundingObjects.size() - 1]->SetPosition(vector3(2.5f * (boundingObjects.size() - 1), 0.0f, 0.0f));
+	return boundingObjects.size() - 1;
 }
 
 //Switch the visibility of a Bounding Object
@@ -80,7 +81,7 @@ void BoundingObjectManager::RenderBO(MeshManagerSingleton* meshManager){
 	{
 		meshManager->AddCubeToQueue(visibleForRender[i]->GetModelMatrix() * glm::scale(visibleForRender[i]->GetHalfWidthLocal() *2.0f), vector3(255.0f, 0.0f, 0.0f), WIRE);
 	}
-	
+	visibleForRender.clear();
 }
 
 void BoundingObjectManager::CheckCollisions()

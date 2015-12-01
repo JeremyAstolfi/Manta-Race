@@ -32,6 +32,7 @@ void AppClass::InitVariables(void)
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);
+		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Mine"+i);
 		temp->~EnemyObject();
 	}
 
@@ -61,6 +62,7 @@ void AppClass::Update(void)
 	//enemies
 	for (int i = 0; i < m_pEOManage->GetEntityCount(); i++)
 	{
+		vector3 attackVec = vector3(0.0f);
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		if (temp->GetPosition().z > 15.0f)
 		{
@@ -68,7 +70,18 @@ void AppClass::Update(void)
 			float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
 			float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 
-			temp->SetPosition(vector3(xRand,yRand,zRand));
+			temp->SetPosition(vector3(xRand, yRand, zRand));
+			temp->~EnemyObject();
+		}
+
+		if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
+		{
+			attackVec = temp->GetPosition() - mantaRay->GetPosition();
+			attackVec = glm::normalize(attackVec);
+			attackVec *= 0.125f;
+			attackVec.z = 0.0f;
+
+			temp->SetPosition(temp->GetPosition() - attackVec);
 		}
 	//	m_pMeshMngr->SetModelMatrix(glm::translate(temp->GetPosition()) * glm::scale(vector3(0.25f)), "Mine");
 	}
@@ -90,9 +103,14 @@ void AppClass::Update(void)
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
-	//m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
-	//m_pMeshMngr->Print("FPS:");
-	//m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+	int timeTick = (clock() - previousTime) / CLOCKS_PER_SEC;
+	int currentTime = timeCountdown - timeTick;
+	m_pMeshMngr->Print("Time:");
+	m_pMeshMngr->Print(std::to_string(currentTime), RERED);
+	if (currentTime < 0)
+	{
+		previousTime = clock();
+	}
 }
 
 void AppClass::Display(void)

@@ -30,10 +30,14 @@ public:
 	float xRange = xCeiling - xFloor;
 	float zCeiling = -1450.0f;
 	float zFloor = -375.0f;
-	float zRange = zCeiling - zFloor;
+	float zRange = (zCeiling - zFloor);
 
 	int tempX = 0;
 	int tempY = 0;
+
+	int timeCountdown = 40;
+
+	clock_t previousTime = clock();
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}

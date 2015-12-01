@@ -95,6 +95,8 @@ void EnemyObject::SetMaxAcc(float a_fMaxAcc) { m_fMaxAcc = a_fMaxAcc; }
 void EnemyObject::SetMass(float a_fMass){ m_fMass = a_fMass; }
 String EnemyObject::GetName(void) { return m_sName; }
 void EnemyObject::SetScale(vector3 a_v3Scale) { m_v3Scale = a_v3Scale; }
+int EnemyObject::GetHealth(void) { return health; }
+void EnemyObject::SetHealth(int _health) { health = _health; }
 //---
 void EnemyObject::Update(void)
 {

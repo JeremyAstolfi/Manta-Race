@@ -35,6 +35,10 @@ public:
 	int tempX = 0;
 	int tempY = 0;
 
+	int timeCountdown = 40;
+
+	clock_t previousTime = clock();
+
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}
 	BoundingObjectManager* bObjManager = BoundingObjectManager::GetInstance();

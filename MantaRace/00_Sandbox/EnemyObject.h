@@ -18,6 +18,7 @@ class EnemyObject
 	float m_fMaxAcc = 0.1f; //Limit of the acceleration of the entity
 	bool render = false; //true if the object should be rendered
 	String m_sName = ""; // Name index
+	int health = 0;
 
 	int boIndex; //index of bounding object
 
@@ -55,6 +56,9 @@ public:
 	vector3 GetPosition(void);
 	vector3 GetVelocity(void);
 	String GetName(void);
+
+	int GetHealth(void);
+	void SetHealth(int _health);
 
 protected:
 

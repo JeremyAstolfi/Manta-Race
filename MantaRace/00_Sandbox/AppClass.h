@@ -30,7 +30,7 @@ public:
 	float xRange = xCeiling - xFloor;
 	float zCeiling = -1450.0f;
 	float zFloor = -375.0f;
-	float zRange = zCeiling - zFloor;
+	float zRange = (zCeiling - zFloor);
 
 	int tempX = 0;
 	int tempY = 0;

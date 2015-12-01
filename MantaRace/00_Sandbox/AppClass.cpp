@@ -31,7 +31,7 @@ void AppClass::InitVariables(void)
 		temp->SetVelocity(vector3(0.0f, 0.0f, .5f));
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
-		m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine"+i);
+		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Mine"+i);
 		temp->~EnemyObject();
 	}
 
@@ -61,6 +61,7 @@ void AppClass::Update(void)
 	//enemies
 	for (int i = 0; i < m_pEOManage->GetEntityCount(); i++)
 	{
+		vector3 attackVec = vector3(0.0f);
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		if (temp->GetPosition().z > 15.0f)
 		{
@@ -68,7 +69,18 @@ void AppClass::Update(void)
 			float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
 			float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 
-			temp->SetPosition(vector3(xRand,yRand,zRand));
+			temp->SetPosition(vector3(xRand, yRand, zRand));
+			temp->~EnemyObject();
+		}
+
+		if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
+		{
+			attackVec = temp->GetPosition() - mantaRay->GetPosition();
+			attackVec = glm::normalize(attackVec);
+			attackVec *= 0.125f;
+			attackVec.z = 0.0f;
+
+			temp->SetPosition(temp->GetPosition() - attackVec);
 		}
 	//	m_pMeshMngr->SetModelMatrix(glm::translate(temp->GetPosition()) * glm::scale(vector3(0.25f)), "Mine");
 	}

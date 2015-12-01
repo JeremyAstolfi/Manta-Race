@@ -20,7 +20,7 @@ public:
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
 	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
-	int enemies = 500;
+	int enemies = 20;
 
 	float yCeiling = 3.0f;
 	float yFloor = -3.0f;

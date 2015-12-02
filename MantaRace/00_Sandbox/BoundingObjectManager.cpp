@@ -48,7 +48,7 @@ void BoundingObjectManager::SetBOVisibility(BoundingObject* checker, bool visibl
 //various methods
 
 //Add a new Bounding Object to the list
-int BoundingObjectManager::AddBox(String model,std::vector<vector3> vertLists){
+uint BoundingObjectManager::AddBox(String model,std::vector<vector3> vertLists){
 	BoundingObject* adder = new BoundingObject(vertLists);
 	adder->Model = model;
 	

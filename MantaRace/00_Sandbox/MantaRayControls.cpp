@@ -3,6 +3,8 @@
 MantaRayControls* MantaRayControls::instance = nullptr;
 MantaRayControls::MantaRayControls()
 {
+	boIndex = -1;
+//	boIndex = BoundingObjectManager::GetInstance()->AddBox("MantaRay", MeshManagerSingleton::GetInstance()->GetVertexList("MantaRay"));
 	boundary = vector3(3.5f, 2.0f, 4.0f);
 }
 
@@ -13,10 +15,17 @@ MantaRayControls::~MantaRayControls()
 
 void MantaRayControls::Update(void)
 {
+	if (boIndex == -1){
+		boIndex = BoundingObjectManager::GetInstance()->AddBox("MantaRay", MeshManagerSingleton::GetInstance()->GetVertexList("MantaRay"));
+	}
+
 	vector3 v3Acceleration = rayAcceleration / rayMass;
 	v3Acceleration = glm::clamp(v3Acceleration, -rayMaxAcceleration, rayMaxAcceleration);
 	rayVelocity += v3Acceleration;
 	rayPosition += rayVelocity;
+
+	matrix4 m4ToWorld = glm::translate(rayPosition)*glm::scale(vector3(0.25,0.25,0.25));
+	BoundingObjectManager::GetInstance()->boundingObjects[boIndex]->SetModelMatrix(m4ToWorld);
 
 	if (rayVelocity != vector3(0.0f))
 	{

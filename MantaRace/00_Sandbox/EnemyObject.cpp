@@ -100,7 +100,9 @@ void EnemyObject::SetHealth(int _health) { health = _health; }
 //---
 void EnemyObject::Update(void)
 {
-	
+	if(isDead){
+		render = false;
+	}
 	if (render)
 	{
 	//Calculate the acceleration based on the mass
@@ -127,3 +129,6 @@ void EnemyObject::Update(void)
 	}
 }
 
+BoundingObject* EnemyObject::GetBoundingObject(){
+	return m_pColliderManager->boundingObjects[boIndex];
+}

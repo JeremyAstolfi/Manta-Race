@@ -20,12 +20,13 @@ class EnemyObject
 	String m_sName = ""; // Name index
 	int health = 0;
 
-	int boIndex; //index of bounding object
+	uint boIndex; //index of bounding object
 
 	BoundingObjectManager* m_pColliderManager = nullptr; //Collider manager
 	MeshManagerSingleton* m_pMeshManager = nullptr;//Mesh Manager
 
 public:
+	bool isDead = false;
 	EnemyObject(String a_sName);
 
 	EnemyObject(EnemyObject const& other);
@@ -56,6 +57,8 @@ public:
 	vector3 GetPosition(void);
 	vector3 GetVelocity(void);
 	String GetName(void);
+
+	BoundingObject* GetBoundingObject();
 
 	int GetHealth(void);
 	void SetHealth(int _health);

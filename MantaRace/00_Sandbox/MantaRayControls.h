@@ -2,6 +2,7 @@
 
 #include "RE\ReEngAppClass.h"
 #include <math.h>
+#include "BoundingObjectManager.h"
 class MantaRayControls
 {
 
@@ -20,10 +21,15 @@ public:
 	vector3 m_v3Up; //Manta up vector
 	int health = 10;
 
+	uint boIndex; //index of mantaray bounding box
+
 	///<summary> Constructs the singleton pointer </summary>
 	static MantaRayControls* GetInstance(){
-		if (instance == nullptr)
+		if (instance == nullptr){
 			instance = new MantaRayControls();
+
+			
+		}
 		return instance;
 	}
 

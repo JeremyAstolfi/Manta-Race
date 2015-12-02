@@ -32,7 +32,7 @@ void AppClass::InitVariables(void)
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		//m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);
-		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Mine"+i);
+		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Enemy"+i);
 		temp->~EnemyObject();
 	}
 
@@ -64,24 +64,34 @@ void AppClass::Update(void)
 	{
 		vector3 attackVec = vector3(0.0f);
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
-		if (temp->GetPosition().z > 15.0f)
-		{
-			float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
-			float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
-			float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
+		if (!temp->isDead){
+			if (temp->GetPosition().z > 15.0f)
+			{
+				float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
+				float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
+				float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 
-			temp->SetPosition(vector3(xRand, yRand, zRand));
-			temp->~EnemyObject();
-		}
+				temp->SetPosition(vector3(xRand, yRand, zRand));
+				temp->~EnemyObject();
+			}
 
-		if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
-		{
-			attackVec = temp->GetPosition() - mantaRay->GetPosition();
-			attackVec = glm::normalize(attackVec);
-			attackVec *= 0.125f;
-			attackVec.z = 0.0f;
+			if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
+			{
+				attackVec = temp->GetPosition() - mantaRay->GetPosition();
+				attackVec = glm::normalize(attackVec);
+				attackVec *= 0.125f;
+				attackVec.z = 0.0f;
 
-			temp->SetPosition(temp->GetPosition() - attackVec);
+				temp->SetPosition(temp->GetPosition() - attackVec);
+
+				//implement collision detection here
+				if (temp->GetBoundingObject()->IsBoxColliding(bObjManager->boundingObjects[mantaRay->boIndex])){
+					mantaRay->SetHealth(mantaRay->health - 1);
+					std::cout << "HIT";
+					temp->isDead = true;
+					//temp->~EnemyObject();
+				}
+			}
 		}
 	//	m_pMeshMngr->SetModelMatrix(glm::translate(temp->GetPosition()) * glm::scale(vector3(0.25f)), "Mine");
 	}
@@ -93,10 +103,12 @@ void AppClass::Update(void)
 	//Updates the manta ray
 	m_pMeshMngr->SetModelMatrix(glm::translate(mantaRay->GetPosition()) * glm::scale(vector3(.33f, .33f, -.33f)), "MantaRay");
 
-	m_pMeshMngr->AddInstanceToRenderList("ALL");
+	//m_pMeshMngr->AddInstanceToRenderList("ALL");
+	m_pMeshMngr->AddInstanceToRenderList("crosshair");
+	m_pMeshMngr->AddInstanceToRenderList("MantaRay");
 
 	//this line renders all bounding objects that are tagged as visible (default)
-	bObjManager->RenderBO(m_pMeshMngr);
+	//bObjManager->RenderBO(m_pMeshMngr);
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();

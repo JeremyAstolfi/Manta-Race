@@ -25,7 +25,7 @@ public:
 	void SwitchVisibility(BoundingObject* checker);
 
 	//Various methods
-	int AddBox(String,std::vector<vector3>);
+	uint AddBox(String,std::vector<vector3>);
 	void RenderBO(MeshManagerSingleton*);
 	void CheckCollisions();
 	void CollisionResponse(BoundingObject* object1, BoundingObject* object2);

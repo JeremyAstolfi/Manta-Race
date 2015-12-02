@@ -114,6 +114,9 @@ void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 		return;
 
 	m_m4ToWorld = _m4ToWorld;
+
+	///* probably redundant. nothing has broken since removing this yet, but hold onto it for a while in case we need it back
+
 	//Calculate the vertex that makes the box
 	vector3 v3Corner[8];
 	v3Corner[0] = vector3(m_v3Min.x, m_v3Min.y, m_v3Min.z);
@@ -156,6 +159,8 @@ void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)
 	m_v3HalfWidthG.x = (m_v3MaxG.x - m_v3MinG.x) / 2.0f;
 	m_v3HalfWidthG.y = (m_v3MaxG.y - m_v3MinG.y) / 2.0f;
 	m_v3HalfWidthG.z = (m_v3MaxG.z - m_v3MinG.z) / 2.0f;
+
+	//*/
 }
 
 bool BoundingObject::IsBoxColliding(BoundingObject* other)

@@ -74,18 +74,20 @@ void EnemyObjectManager::Update(void)
 	//m_pColliderManager->Update();
 	for (uint nEntity = 0; nEntity < m_nEntityCount; nEntity++)
 	{
-		//std::vector<int> list = m_pColliderManager->GetCollidingVector(nEntity);
-		if (m_lEntity[nEntity]->GetPosition().x > 15.0f && m_lEntity[nEntity]->GetVelocity().x > 0.0f)
-		{
-			m_lEntity[nEntity]->SetVelocity(vector3(0.0f));
-			m_lEntity[nEntity]->SetAcceleration(-m_lEntity[nEntity]->GetAcceleration());
+		if (!m_lEntity[nEntity]->isDead){
+			//std::vector<int> list = m_pColliderManager->GetCollidingVector(nEntity);
+			if (m_lEntity[nEntity]->GetPosition().x > 15.0f && m_lEntity[nEntity]->GetVelocity().x > 0.0f)
+			{
+				m_lEntity[nEntity]->SetVelocity(vector3(0.0f));
+				m_lEntity[nEntity]->SetAcceleration(-m_lEntity[nEntity]->GetAcceleration());
+			}
+			if (m_lEntity[nEntity]->GetPosition().x < -15.0f && m_lEntity[nEntity]->GetVelocity().x < 0.0f)
+			{
+				m_lEntity[nEntity]->SetVelocity(vector3(0.0f));
+				m_lEntity[nEntity]->SetAcceleration(-m_lEntity[nEntity]->GetAcceleration());
+			}
+			m_lEntity[nEntity]->Update();
 		}
-		if (m_lEntity[nEntity]->GetPosition().x < -15.0f && m_lEntity[nEntity]->GetVelocity().x < 0.0f)
-		{
-			m_lEntity[nEntity]->SetVelocity(vector3(0.0f));
-			m_lEntity[nEntity]->SetAcceleration(-m_lEntity[nEntity]->GetAcceleration());
-		}
-		m_lEntity[nEntity]->Update();
 	}
 }
 

@@ -56,6 +56,7 @@ void AppClass::ProcessKeyboard(void)
 		if (tempX > 0)
 		{
 			mantaRay->SetAcceleration(vector3(0.0f, rayAcc.y, rayAcc.z));
+			mantaRay->Rotate(25.0f);
 		}
 		xValue -= 1;
 		xKeyUp = false;
@@ -66,6 +67,7 @@ void AppClass::ProcessKeyboard(void)
 		if (tempX < 0)
 		{
 			mantaRay->SetAcceleration(vector3(0.0f, rayAcc.y, rayAcc.z));
+			mantaRay->Rotate(-25.0f);
 		}
 		xValue += 1;
 		xKeyUp = false;

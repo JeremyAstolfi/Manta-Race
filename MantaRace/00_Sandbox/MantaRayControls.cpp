@@ -107,7 +107,12 @@ vector3 MantaRayControls::GetAcceleration(void) { return rayAcceleration; }
 void MantaRayControls::SetMaxAcc(float _maxAcceleration) { rayMaxAcceleration = _maxAcceleration; }
 // Sets the ray's mass
 void MantaRayControls::SetMass(float _mass) { rayMass = _mass; }
+// Sets the ray's friction
 void MantaRayControls::SetFriction(float _friction) { rayFriction = _friction; }
+// Sets the ray's health
+void MantaRayControls::SetHealth(int _health) { health = _health; }
+// Return the ray's health
+int MantaRayControls::GetHealth(void) { return health; }
 
 //Roates Ray
 void MantaRayControls::Rotate(float speed) { theta += speed; }

@@ -95,21 +95,21 @@ void AppClass::Update(void)
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
 	//this line renders all bounding objects that are tagged as visible (default)
-	//bObjManager->RenderBO(m_pMeshMngr);
+	bObjManager->RenderBO(m_pMeshMngr);
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
-	//print info into the console
-	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	int timeTick = (clock() - previousTime) / CLOCKS_PER_SEC;
 	int currentTime = timeCountdown - timeTick;
-	m_pMeshMngr->Print("Time:");
-	m_pMeshMngr->Print(std::to_string(currentTime), RERED);
+	m_pMeshMngr->Print("Time: ", REWHITE);
+	m_pMeshMngr->PrintLine(std::to_string(currentTime), RERED);
 	if (currentTime < 0)
 	{
 		previousTime = clock();
 	}
+	m_pMeshMngr->Print("Health: ", REWHITE);
+	m_pMeshMngr->Print(std::to_string(mantaRay->GetHealth()), RERED);
 }
 
 void AppClass::Display(void)

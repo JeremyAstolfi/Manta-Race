@@ -18,6 +18,7 @@ public:
 	float theta = 0.0f;
 	vector3 m_v3Forward; //Manta view vector
 	vector3 m_v3Up; //Manta up vector
+	int health = 10;
 
 	///<summary> Constructs the singleton pointer </summary>
 	static MantaRayControls* GetInstance(){
@@ -70,6 +71,9 @@ public:
 	///<summary> Returns the ray's acceleration </summary>
 	vector3 GetAcceleration(void);
 
+	///<summary> Returns the ray's health </summary>
+	int GetHealth(void);
+
 	///<summary> Set the max value the ray can accelerate </summary>
 	void SetMaxAcc(float _maxAcceleration);
 
@@ -78,6 +82,9 @@ public:
 
 	///<summary> Set friction to oppose the ray's acceleration </summary>
 	void SetFriction(float _friction);
+
+	///<summary> Set health of the ray </summary>
+	void SetHealth(int _health);
 
 private:
 	//Boundaries within the manta must be contained

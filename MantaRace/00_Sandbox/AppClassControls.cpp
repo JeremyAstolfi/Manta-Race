@@ -125,11 +125,28 @@ void AppClass::ProcessMouse(void)
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-			for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			m_pMeshMngr->AddLineToRenderList(vector3(mantaRay->GetPosition().x, mantaRay->GetPosition().y, mantaRay->GetPosition().z-1.0f), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
 		}
-		}
+		//for (float i = 0.0f; i < 10.0f; i += .1f)
+		//{
+		//	vector3 collisionTest = vector3(this->GetMousePosition().x, this->GetMousePosition().y, this->GetMousePosition().z - i);
+		//	for (int j = 0; j < m_pEOManage->GetEntityCount(); j++)
+		//	{
+		//		EnemyObject* test = m_pEOManage->GetEntity(j);
+		//		BoundingObject* testBOEnemy = test->GetBoundingObject();
+		//		if (glm::distance(collisionTest, testBOEnemy->GetCenterGlobal()) < glm::distance(testBOEnemy->GetCenterGlobal(), testBOEnemy->GetHalfWidthGlobal()))
+		//		{
+		//			if (glm::distance(collisionTest, testBOEnemy->GetCenterGlobal()) < -glm::distance(testBOEnemy->GetCenterGlobal(), testBOEnemy->GetHalfWidthGlobal()))
+		//			{
+		//				m_pEOManage->GetEntity(j)->isDead = true;
+		//			}
+		//		}
+		//		delete test, testBOEnemy;
+		//	}
+		//}
+	}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
 		m_bArcBall = true;
 	

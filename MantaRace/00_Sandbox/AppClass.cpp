@@ -32,7 +32,7 @@ void AppClass::InitVariables(void)
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		//m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);
-		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Enemy"+i);
+		m_pMeshMngr->LoadModel("MantaRace\\Shark.obj", "Enemy"+i);
 		temp->~EnemyObject();
 	}
 

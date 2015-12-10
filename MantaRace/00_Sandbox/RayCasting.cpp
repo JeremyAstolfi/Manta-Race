@@ -36,7 +36,7 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	//FINDING POINT OF INTERSECTION
 
 	// calculate distance ray travels before intersection
-	float t = -b - sqrt(disc);
+	float t = -b + sqrt(disc);
 
 	// negative t means the first possible intersection is before ray's origin,
 	//in otherwords: ray originated inside the sphere

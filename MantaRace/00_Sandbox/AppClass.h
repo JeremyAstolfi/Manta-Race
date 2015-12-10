@@ -37,6 +37,7 @@ public:
 	int tempY = 0;
 
 	int timeCountdown = 40;
+	int score = 0;
 
 	clock_t previousTime = clock();
 

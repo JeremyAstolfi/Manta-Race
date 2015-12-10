@@ -38,6 +38,9 @@ public:
 
 	int timeCountdown = 40;
 	int score = 0;
+	vector3* casting = nullptr;
+	vector3* previousCasting = nullptr;
+	int enemyIndex = 500;
 
 	clock_t previousTime = clock();
 

@@ -87,6 +87,7 @@ void AppClass::Update(void)
 				//implement collision detection here
 				if (temp->GetBoundingObject()->IsBoxColliding(bObjManager->boundingObjects[mantaRay->boIndex])){
 					mantaRay->SetHealth(mantaRay->health - 1);
+					score -= 500;
 					std::cout << "HIT";
 					temp->isDead = true;
 					//temp->~EnemyObject();
@@ -114,9 +115,9 @@ void AppClass::Update(void)
 	int nFPS = m_pSystem->GetFPS();
 	//Print info on the screen
 	int timeTick = (clock() - previousTime) / CLOCKS_PER_SEC;
-	int currentTime = timeCountdown - timeTick;
-	m_pMeshMngr->Print("Time: ", REWHITE);
-	m_pMeshMngr->PrintLine(std::to_string(currentTime), RERED);
+	int currentTime = timeTick;
+	m_pMeshMngr->Print("Score: ", REWHITE);
+	m_pMeshMngr->PrintLine(std::to_string(score + currentTime * 100), RERED);
 	if (currentTime < 0)
 	{
 		previousTime = clock();

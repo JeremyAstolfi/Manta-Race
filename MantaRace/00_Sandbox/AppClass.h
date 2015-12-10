@@ -10,6 +10,7 @@ Date: 2015/09
 #include "BoundingObjectManager.h"
 #include "MantaRayControls.h"
 #include "EnemyObjectManager.h"
+#include "RayCasting.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass

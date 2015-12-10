@@ -133,7 +133,9 @@ void AppClass::ProcessMouse(void)
 		{
 			EnemyObject* eoTemp = m_pEOManage->GetEntity(i);
 			BoundingObject* boTemp = eoTemp->GetBoundingObject();
-			if (RayCasting::SphereCollision(vector3(this->GetMousePosition()), vector3(0.0f, 0.0f, 10.0f), vector3(boTemp->GetCenterGlobal()), boTemp->GetRadiusF()) != nullptr)
+			vector3 lazor = (vector3(this->GetMousePosition().x, this->GetMousePosition().y, this->GetMousePosition().z) - mantaRay->GetPosition());
+			vector3* casting = RayCasting::SphereCollision(vector3(this->GetMousePosition()), vector3(0.0f, 0.0f, 1.0f), vector3(boTemp->GetCenterGlobal()), .5f);
+			if (casting != nullptr)
 			{
 				eoTemp->isDead = true;
 			}

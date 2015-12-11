@@ -28,7 +28,7 @@ void AppClass::InitVariables(void)
 		float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		temp->SetPosition(vector3(xRand, yRand, zRand));
-		temp->SetVelocity(vector3(0.0f, 0.0f, .5f));
+		temp->SetVelocity(vector3(0.0f, 0.0f, .33f));
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		//m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);

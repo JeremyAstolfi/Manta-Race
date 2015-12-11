@@ -11,17 +11,23 @@ Date: 2015/09
 #include "MantaRayControls.h"
 #include "EnemyObjectManager.h"
 #include "RayCasting.h"
+#include "MyOctant.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
 public:
 	typedef ReEngAppClass super;
-	
+	bool OctTree=false;
 	sf::Vector2i mousePos;
 	vector3 v3MousePos;
 	EnemyObjectManager* m_pEOManage = EnemyObjectManager::GetInstance();
 	
+	int m_nInstances = 10;
+	
+	MyOctant* m_pOctant = nullptr;
+	MyOctant* m_pOctChildren[3][8];
+
 	int enemies = 20;
 	float yCeiling = 3.0f;
 	float yFloor = -3.0f;
@@ -43,7 +49,7 @@ public:
 	int enemyIndex = 500;
 
 	clock_t previousTime = clock();
-
+	void AppClass::CheckForObjects(MyOctant* currentNode, int _level);
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow, bool a_bUsingConsole = false) : super(hInstance, lpCmdLine, nCmdShow, a_bUsingConsole) {}
 	BoundingObjectManager* bObjManager = BoundingObjectManager::GetInstance();

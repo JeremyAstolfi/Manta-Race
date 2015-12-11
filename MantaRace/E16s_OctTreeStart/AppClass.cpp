@@ -94,17 +94,18 @@ void AppClass::CheckForObjects(MyOctant* currentNode, int _level)
 		int withinIt = 0;
 		for (int h = 0; h < num; h++)
 		{
-			if (m_pBOMngr->GetPositions()[h].x > (currentNode->GetChild(g)->GetCenter().x - currentNode->GetChild(g)->GetSize())
+			MyBOClass* test = m_pBOMngr->GetBoundingObject(h);
+			if (m_pBOMngr->GetPositions()[h].x + test->GetHalfWidth().x > (currentNode->GetChild(g)->GetCenter().x - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].x < (currentNode->GetChild(g)->GetCenter().x + currentNode->GetChild(g)->GetSize())
+				m_pBOMngr->GetPositions()[h].x - test->GetHalfWidth().x < (currentNode->GetChild(g)->GetCenter().x + currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].y > (currentNode->GetChild(g)->GetCenter().y - currentNode->GetChild(g)->GetSize())
+				m_pBOMngr->GetPositions()[h].y + test->GetHalfWidth().y > (currentNode->GetChild(g)->GetCenter().y - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].y < (currentNode->GetChild(g)->GetCenter().y + currentNode->GetChild(g)->GetSize())
+				m_pBOMngr->GetPositions()[h].y - test->GetHalfWidth().y < (currentNode->GetChild(g)->GetCenter().y + currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].z > (currentNode->GetChild(g)->GetCenter().z - currentNode->GetChild(g)->GetSize())
+				m_pBOMngr->GetPositions()[h].z + test->GetHalfWidth().z > (currentNode->GetChild(g)->GetCenter().z - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].z < (currentNode->GetChild(g)->GetCenter().z + currentNode->GetChild(g)->GetSize())
+				m_pBOMngr->GetPositions()[h].z - test->GetHalfWidth().z < (currentNode->GetChild(g)->GetCenter().z + currentNode->GetChild(g)->GetSize())
 				)
 			{
 				withinIt++;

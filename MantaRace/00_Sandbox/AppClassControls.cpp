@@ -40,7 +40,14 @@ void AppClass::ProcessKeyboard(void)
 		yValue += 1;
 		yKeyUp = false;
 	}
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	{
+		OctTree = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		OctTree = true;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		if (tempY > 0)

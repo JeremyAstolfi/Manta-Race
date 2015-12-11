@@ -17,6 +17,7 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
 	
 	m_pMeshMngr->LoadModel("MantaRace\\newManta.obj", "MantaRay");
+	m_pOctant = new MyOctant(vector3(0.0f), 5.0f);
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
 	sf::Mouse::setPosition(sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2));
@@ -35,7 +36,7 @@ void AppClass::InitVariables(void)
 		m_pMeshMngr->LoadModel("MantaRace\\Shark.obj", "Enemy"+i);
 		temp->~EnemyObject();
 	}
-
+	m_pOctant->Subdivide();
 }
 
 void AppClass::Update(void)
@@ -110,7 +111,10 @@ void AppClass::Update(void)
 
 	//this line renders all bounding objects that are tagged as visible (default)
 	//bObjManager->RenderBO(m_pMeshMngr);
-
+	if (OctTree){
+		CheckForObjects(m_pOctant, 1);
+		m_pOctant->DisplayBox(REBLUE);
+	}
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
 	//Print info on the screen
@@ -138,6 +142,7 @@ void AppClass::Display(void)
 void AppClass::Release(void)
 {
 	super::Release(); //release the memory of the inherited fields
+	SafeDelete(m_pOctant);
 }
 
 vector4 AppClass::GetMousePosition(void)
@@ -159,4 +164,40 @@ vector4 AppClass::GetMousePosition(void)
 	vector4 tempMousePos = vector4(in[0], in[1], in[2], in[3]);
 	vector4 mouseGetPosition = projInverse * tempMousePos;
 	return mouseGetPosition;
+}
+void AppClass::CheckForObjects(MyOctant* currentNode, int _level)
+{
+	uint num = bObjManager->GetPositions().size();
+	for (int g = 0; g < 8; g++)
+	{
+		int withinIt = 0;
+		for (int h = 0; h < num; h++)
+		{
+			if (currentNode->GetChild(g) != nullptr){
+				BoundingObject* test = bObjManager->GetBoundingObject(h);
+				if (bObjManager->GetPositions()[h].x + test->GetHalfWidthLocal().x >(currentNode->GetChild(g)->GetCenter().x - currentNode->GetChild(g)->GetSize())
+					&&
+					bObjManager->GetPositions()[h].x - test->GetHalfWidthLocal().x < (currentNode->GetChild(g)->GetCenter().x + currentNode->GetChild(g)->GetSize())
+					&&
+					bObjManager->GetPositions()[h].y + test->GetHalfWidthLocal().y >(currentNode->GetChild(g)->GetCenter().y - currentNode->GetChild(g)->GetSize())
+					&&
+					bObjManager->GetPositions()[h].y - test->GetHalfWidthLocal().y < (currentNode->GetChild(g)->GetCenter().y + currentNode->GetChild(g)->GetSize())
+					&&
+					bObjManager->GetPositions()[h].z + test->GetHalfWidthLocal().z >(currentNode->GetChild(g)->GetCenter().z - currentNode->GetChild(g)->GetSize())
+					&&
+					bObjManager->GetPositions()[h].z - test->GetHalfWidthLocal().z < (currentNode->GetChild(g)->GetCenter().z + currentNode->GetChild(g)->GetSize())
+					)
+				{
+					withinIt++;
+				}
+		
+				if (withinIt >= 2 && _level < 3)
+				{
+					currentNode->GetChild(g)->Subdivide();
+					CheckForObjects(currentNode->GetChild(g), _level + 1);
+				}
+			}
+
+		}
+	}
 }

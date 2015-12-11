@@ -34,7 +34,10 @@ void BoundingObjectManager::ReleaseInstance()
 int BoundingObjectManager::GetBONum(){
 	return boundingObjects.size();
 }
-
+BoundingObject* BoundingObjectManager::GetBoundingObject(int n)
+{
+	return boundingObjects[n];
+}
 //Set the color of a Bounding Object
 void BoundingObjectManager::SetBOColor(BoundingObject* checker, vector3 colorChoice){
 	checker->SetColor(colorChoice);
@@ -110,7 +113,15 @@ void BoundingObjectManager::CheckCollisions()
 	}// end for i
 }
 
-
+std::vector<vector3> BoundingObjectManager::GetPositions()
+{
+	positions.clear();
+	for each (BoundingObject* object in boundingObjects)
+	{
+		positions.push_back(object->GetCenterGlobal());
+	}
+	return positions;
+}
 
 
 void BoundingObjectManager::CollisionResponse(BoundingObject* object1, BoundingObject* object2)

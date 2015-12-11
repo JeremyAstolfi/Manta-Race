@@ -10,6 +10,7 @@ Date: 2015/09
 #include "BoundingObjectManager.h"
 #include "MantaRayControls.h"
 #include "EnemyObjectManager.h"
+#include "RayCasting.h"
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -36,6 +37,10 @@ public:
 	int tempY = 0;
 
 	int timeCountdown = 40;
+	int score = 0;
+	vector3* casting = nullptr;
+	vector3* previousCasting = nullptr;
+	int enemyIndex = 500;
 
 	clock_t previousTime = clock();
 

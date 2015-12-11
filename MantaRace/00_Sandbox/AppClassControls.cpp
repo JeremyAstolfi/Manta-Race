@@ -120,16 +120,36 @@ void AppClass::ProcessKeyboard(void)
 }
 void AppClass::ProcessMouse(void)
 {
+	bool mouseLeftDown = false;
 	m_bArcBall = false;
 	m_bFPC = false;
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-			for (int i = 0; i < 8; i++)
+		mouseLeftDown = true;
+		for (int i = 0; i < 8; i++)
 		{
 			m_pMeshMngr->AddLineToRenderList(vector3(mantaRay->GetPosition().x, mantaRay->GetPosition().y, mantaRay->GetPosition().z-1.0f), vector3(GetMousePosition().x + (i*0.01f), GetMousePosition().y + (i*0.01f), -1.0f), vector3(0.0f), vector3(255.0f));
 		}
+		for (int i = 0; i < m_pEOManage->GetEntityCount(); i++)
+		{
+			EnemyObject* eoTemp = m_pEOManage->GetEntity(i);
+			BoundingObject* boTemp = eoTemp->GetBoundingObject();
+			vector3 lazor = (vector3(this->GetMousePosition().x, this->GetMousePosition().y, this->GetMousePosition().z) - mantaRay->GetPosition());
+			casting = RayCasting::SphereCollision(vector3(this->GetMousePosition()), vector3(0.0f, 0.0f, 1.0f), vector3(boTemp->GetCenterGlobal()), .5f);
+			if (casting != nullptr && enemyIndex != i)
+			{
+				eoTemp->isDead = true;
+				score += 500;
+				enemyIndex = i;
+				casting = nullptr;
+			}
 		}
+	}
+	if (!mouseLeftDown)
+	{
+		enemyIndex = 500;
+	}
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
 		m_bArcBall = true;
 	

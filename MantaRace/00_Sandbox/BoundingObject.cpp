@@ -103,7 +103,8 @@ vector3 BoundingObject::GetRadiusV3()
 float BoundingObject::GetRadiusF()
 {
 	vector3 rad = this->GetRadiusV3();
-	return rad.x;
+	float legnth = glm::length(rad);
+	return legnth / 50;
 }
 
 void BoundingObject::SetModelMatrix(matrix4 _m4ToWorld)

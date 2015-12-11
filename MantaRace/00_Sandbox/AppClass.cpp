@@ -28,11 +28,11 @@ void AppClass::InitVariables(void)
 		float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
 		EnemyObject* temp = m_pEOManage->GetEntity(i);
 		temp->SetPosition(vector3(xRand, yRand, zRand));
-		temp->SetVelocity(vector3(0.0f, 0.0f, .5f));
+		temp->SetVelocity(vector3(0.0f, 0.0f, .33f));
 		temp->SetScale(vector3(0.33f));
 		temp->SetVisibility(true);
 		//m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);
-		m_pMeshMngr->LoadModel("MantaRace\\Shork.obj", "Enemy"+i);
+		m_pMeshMngr->LoadModel("MantaRace\\Shark.obj", "Enemy"+i);
 		temp->~EnemyObject();
 	}
 
@@ -87,6 +87,7 @@ void AppClass::Update(void)
 				//implement collision detection here
 				if (temp->GetBoundingObject()->IsBoxColliding(bObjManager->boundingObjects[mantaRay->boIndex])){
 					mantaRay->SetHealth(mantaRay->health - 1);
+					score -= 500;
 					std::cout << "HIT";
 					temp->isDead = true;
 					//temp->~EnemyObject();
@@ -114,9 +115,9 @@ void AppClass::Update(void)
 	int nFPS = m_pSystem->GetFPS();
 	//Print info on the screen
 	int timeTick = (clock() - previousTime) / CLOCKS_PER_SEC;
-	int currentTime = timeCountdown - timeTick;
-	m_pMeshMngr->Print("Time: ", REWHITE);
-	m_pMeshMngr->PrintLine(std::to_string(currentTime), RERED);
+	int currentTime = timeTick;
+	m_pMeshMngr->Print("Score: ", REWHITE);
+	m_pMeshMngr->PrintLine(std::to_string(score + currentTime * 100), RERED);
 	if (currentTime < 0)
 	{
 		previousTime = clock();

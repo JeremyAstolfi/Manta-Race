@@ -20,31 +20,13 @@ void AppClass::InitVariables(void)
 		for (int j = 0; j < nSquare; j++)
 		{
 			String sInstance = "Cube_" + std::to_string(i) + "_" + std::to_string(j);
-			matrix4 m4Positions = glm::translate(static_cast<float>(i - nSquare / 2.0f), static_cast<float>(j), 0.0f);
+			matrix4 m4Positions = glm::translate(static_cast<float>(i - nSquare / 2.0f - 5.0f), static_cast<float>(j), -0.7f);
 			m_pMeshMngr->LoadModel("Minecraft\\Cube.obj", sInstance, false, m4Positions);
 			m_pBOMngr->AddObject(sInstance);
 		}
 	}
 	m_pOctant->Subdivide();
-	/*for (int q = 0; q < 2; q++)
-	{
-		for (int i = 0; i < 8; i++)
-		{
-			if (q == 0)
-			{
-				m_pOctChildren[q][i] = m_pOctant->GetChild(i);
-				m_pOctChildren[q][i]->Subdivide();
-			}
-			else
-			{
-				for (int w = 0; w < 8; w++)
-				{
-					m_pOctChildren[q][w] = m_pOctChildren[q - 1][i]->GetChild(w);
-					m_pOctChildren[q][w]->Subdivide();
-				}
-			}
-		}
-	}*/
+	CheckForObjects(m_pOctant, 1);
 }
 
 void AppClass::Update(void)
@@ -59,7 +41,6 @@ void AppClass::Update(void)
 	if (m_bFPC == true)
 		CameraRotation();
 	
-	CheckForObjects(m_pOctant, 1);
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 	m_pOctant->DisplayBox(REBLUE);
 	//Indicate the FPS
@@ -113,17 +94,18 @@ void AppClass::CheckForObjects(MyOctant* currentNode, int _level)
 		int withinIt = 0;
 		for (int h = 0; h < num; h++)
 		{
-			if (m_pBOMngr->GetPositions()[h].x > (m_pOctant->GetChild(g)->GetCenter() - m_pOctant->GetChild(g)->GetSize()).x
+			MyBOClass* test = m_pBOMngr->GetBoundingObject(h);
+			if (m_pBOMngr->GetPositions()[h].x + test->GetHalfWidth().x > (currentNode->GetChild(g)->GetCenter().x - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].x < (m_pOctant->GetChild(g)->GetCenter() + m_pOctant->GetChild(g)->GetSize()).x
+				m_pBOMngr->GetPositions()[h].x - test->GetHalfWidth().x < (currentNode->GetChild(g)->GetCenter().x + currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].y > (m_pOctant->GetChild(g)->GetCenter() - m_pOctant->GetChild(g)->GetSize()).y
+				m_pBOMngr->GetPositions()[h].y + test->GetHalfWidth().y > (currentNode->GetChild(g)->GetCenter().y - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].y < (m_pOctant->GetChild(g)->GetCenter() + m_pOctant->GetChild(g)->GetSize()).y
+				m_pBOMngr->GetPositions()[h].y - test->GetHalfWidth().y < (currentNode->GetChild(g)->GetCenter().y + currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].z > (m_pOctant->GetChild(g)->GetCenter() - m_pOctant->GetChild(g)->GetSize()).z
+				m_pBOMngr->GetPositions()[h].z + test->GetHalfWidth().z > (currentNode->GetChild(g)->GetCenter().z - currentNode->GetChild(g)->GetSize())
 				&&
-				m_pBOMngr->GetPositions()[h].z < (m_pOctant->GetChild(g)->GetCenter() + m_pOctant->GetChild(g)->GetSize()).z
+				m_pBOMngr->GetPositions()[h].z - test->GetHalfWidth().z < (currentNode->GetChild(g)->GetCenter().z + currentNode->GetChild(g)->GetSize())
 				)
 			{
 				withinIt++;

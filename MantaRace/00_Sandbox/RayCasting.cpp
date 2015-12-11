@@ -36,7 +36,8 @@ vector3* RayCasting::SphereCollision(vector3 position, vector3 direction, vector
 	//FINDING POINT OF INTERSECTION
 
 	// calculate distance ray travels before intersection
-	float t = -b - sqrt(disc);
+	float t = -b + sqrt(disc);
+	//technically there are 2 intersections, the + and - of the sqrt(), but we care only about the entry point (+), not the exit pt (-)
 
 	// negative t means the first possible intersection is before ray's origin,
 	//in otherwords: ray originated inside the sphere
@@ -65,13 +66,15 @@ vector3* RayCasting::PlaneCollision(vector3 position, vector3 direction, vector3
 	float dot1 = glm::dot(direction, normal);
 	//determine if ray is parallel to plane
 	if (dot1 == 0){
+		//std::cout << "parallel";
 		return nullptr;
 	}
 
 	//how far ray travels before collision
-	float d = (( glm::dot(position,normal) + dist) / dot1);
+	float d = (( glm::dot(position,normal) + distance) / dot1);
 
 	if (d < 0){ //d is negative, plane exists behind ray
+		//std::cout << "negative";
 		return nullptr;
 	}
 
@@ -95,9 +98,24 @@ vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vect
 
 	//if ray does not intersect with triangles plane, it can't possibly intersect triangle
 	if (intersection != nullptr){
+		//std::cout << "passed";
+		//determine if point is within triangle, by testing all 3 sides
+		//side1
+		if (glm::dot(glm::cross(p2 - p1, *intersection - p1), norm) >= 0){
+			//side2
+			if (glm::dot(glm::cross(p3 - p2, *intersection - p2), norm) >= 0){
+				//side3
+				if (glm::dot(glm::cross(p1 - p3, *intersection - p3), norm) >= 0){
+					return intersection;
+				}
+			}
+		}
+		//point is outside of any one side of tri, return null
+		return nullptr;
 
-		//determine if point is within triangle
-		//attempting "Barycentric Technique"
+		/*
+		//attempting "Barycentric Technique" 
+		//not sure where I went wrong, but I couldn't get results with this method
 
 		//get two sides of the triangle from point 1
 		vector3 s1 = p2 - p1;
@@ -126,6 +144,7 @@ vector3* RayCasting::TriangleCollision(vector3 position, vector3 direction, vect
 			//previously found intersection point is within triangle, return it as triangle's intersection point
 			return intersection;
 		}
+		*/
 	}
 
 	//is ray either does not intersect plane, or does so outside the triangle, return null for no intersection with triangle

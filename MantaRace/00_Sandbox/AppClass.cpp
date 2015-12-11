@@ -34,6 +34,7 @@ void AppClass::InitVariables(void)
 		temp->SetVisibility(true);
 		//m_pMeshMngr->LoadModel("MantaRace\\Mine.obj", "Mine" + i);
 		m_pMeshMngr->LoadModel("MantaRace\\Shark.obj", "Enemy"+i);
+		temp->isShark = true;
 		temp->~EnemyObject();
 	}
 	m_pOctant->Subdivide();
@@ -71,7 +72,7 @@ void AppClass::Update(void)
 				temp-> isDead = true;
 			}
 
-			if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
+			if (temp->isShark && glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
 			{
 				attackVec = temp->GetPosition() - mantaRay->GetPosition();
 				attackVec = glm::normalize(attackVec);

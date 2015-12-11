@@ -68,12 +68,7 @@ void AppClass::Update(void)
 		if (!temp->isDead){
 			if (temp->GetPosition().z > 15.0f)
 			{
-				float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
-				float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
-				float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
-
-				temp->SetPosition(vector3(xRand, yRand, zRand));
-				temp->~EnemyObject();
+				temp-> isDead = true;
 			}
 
 			if (glm::distance(temp->GetPosition(), mantaRay->GetPosition()) < 10.0f)
@@ -95,6 +90,15 @@ void AppClass::Update(void)
 				}
 			}
 		}
+		else{
+			float xRand = static_cast <float> (xFloor + (xRange * rand() / (RAND_MAX + 1.0f)));
+			float yRand = static_cast <float> (yFloor + (yRange * rand() / (RAND_MAX + 1.0f)));
+			float zRand = static_cast <float> (zFloor + (zRange * rand() / (RAND_MAX + 1.0f)));
+
+			temp->SetPosition(vector3(xRand, yRand, zRand));
+			temp->isDead = false;
+			//temp->~EnemyObject();
+		}
 	//	m_pMeshMngr->SetModelMatrix(glm::translate(temp->GetPosition()) * glm::scale(vector3(0.25f)), "Mine");
 	}
 	m_pEOManage->Update();
@@ -108,6 +112,10 @@ void AppClass::Update(void)
 	//m_pMeshMngr->AddInstanceToRenderList("ALL");
 	m_pMeshMngr->AddInstanceToRenderList("crosshair");
 	m_pMeshMngr->AddInstanceToRenderList("MantaRay");
+
+	m_pMeshMngr->AddPlaneToQueue(glm::rotate(glm::translate(vector3(0, -6, -250)) * glm::scale(vector3(500.0f, 500.0f, 500.0f)),-90.0f,vector3(1,0,0)), vector3(0.0, 0.3, 0.3));
+	//m_pMeshMngr->AddPlaneToQueue(glm::translate(vector3(2, 1, 0)) * glm::scale(vector3(1.0f, 1.0f, 1.0f)), vector3(1, 1, 1));
+	//m_pMeshMngr->AddPlaneToQueue(glm::translate(glm::rotate(vector3(0, 0, 0), 90.0f, vector3(0, 0, 0))) * glm::scale(vector3(1.0f, 1.0f, 1.0f)), vector3(1, 1, 1));
 
 	//this line renders all bounding objects that are tagged as visible (default)
 	//bObjManager->RenderBO(m_pMeshMngr);

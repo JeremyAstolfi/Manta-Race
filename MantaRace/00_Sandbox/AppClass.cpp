@@ -41,6 +41,13 @@ void AppClass::InitVariables(void)
 
 void AppClass::Update(void)
 {
+	if (mantaRay->GetHealth() <= 0)
+	{
+		score = 0;
+		mantaRay->SetHealth(10);
+		m_pMeshMngr->Print("YOU DIED", vector3(255.0f, 0.0f, 0.0f)); m_pMeshMngr->Print("YOU DIED", vector3(255.0f, 0.0f, 0.0f));
+		m_pMeshMngr->Print("YOU DIED", vector3(255.0f, 0.0f, 0.0f)); m_pMeshMngr->Print("YOU DIED", vector3(255.0f, 0.0f, 0.0f));
+	}
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
@@ -112,6 +119,7 @@ void AppClass::Update(void)
 	//this line renders all bounding objects that are tagged as visible (default)
 	//bObjManager->RenderBO(m_pMeshMngr);
 	if (OctTree){
+	
 		CheckForObjects(m_pOctant, 1);
 		m_pOctant->DisplayBox(REBLUE);
 	}
@@ -196,6 +204,7 @@ void AppClass::CheckForObjects(MyOctant* currentNode, int _level)
 					currentNode->GetChild(g)->Subdivide();
 					CheckForObjects(currentNode->GetChild(g), _level + 1);
 				}
+				
 			}
 
 		}

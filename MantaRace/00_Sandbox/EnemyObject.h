@@ -27,6 +27,7 @@ class EnemyObject
 
 public:
 	bool isDead = false;
+	bool isShark = false;
 	EnemyObject(String a_sName);
 
 	EnemyObject(EnemyObject const& other);

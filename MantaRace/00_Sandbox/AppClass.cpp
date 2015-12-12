@@ -17,6 +17,11 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("MantaRace\\crosshair.obj", "crosshair");
 	
 	m_pMeshMngr->LoadModel("MantaRace\\newManta.obj", "MantaRay");
+
+	m_pMeshMngr->LoadModel("MantaRace\\BkgdPlane.obj", "backPlane");
+	//backplane = glm::translate(vector3(0, 0, -100));
+	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(0, 0, -1000)) * glm::scale(vector3(400, 400,1)), "backPlane");
+
 	m_pOctant = new MyOctant(vector3(0.0f), 5.0f);
 	mousePos = sf::Vector2i(m_pWindow->GetWidth() / 2, m_pWindow->GetHeight() / 2);
 	v3MousePos = vector3(0.0f);
@@ -121,7 +126,13 @@ void AppClass::Update(void)
 	m_pMeshMngr->AddInstanceToRenderList("crosshair");
 	m_pMeshMngr->AddInstanceToRenderList("MantaRay");
 
+
+	//render ground
 	m_pMeshMngr->AddPlaneToQueue(glm::rotate(glm::translate(vector3(0, -6, -250)) * glm::scale(vector3(500.0f, 500.0f, 500.0f)),-90.0f,vector3(1,0,0)), vector3(0.0, 0.3, 0.3));
+
+	//render backdrop
+	m_pMeshMngr->AddInstanceToRenderList("backPlane");
+
 	//m_pMeshMngr->AddPlaneToQueue(glm::translate(vector3(2, 1, 0)) * glm::scale(vector3(1.0f, 1.0f, 1.0f)), vector3(1, 1, 1));
 	//m_pMeshMngr->AddPlaneToQueue(glm::translate(glm::rotate(vector3(0, 0, 0), 90.0f, vector3(0, 0, 0))) * glm::scale(vector3(1.0f, 1.0f, 1.0f)), vector3(1, 1, 1));
 
